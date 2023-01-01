@@ -45,6 +45,12 @@
             this.labelNombre = new System.Windows.Forms.Label();
             this.buttonSingUp = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.buttonDesconectar = new System.Windows.Forms.Button();
+            this.labelInv = new System.Windows.Forms.Label();
+            this.buttonDeny = new System.Windows.Forms.Button();
+            this.buttonAccept = new System.Windows.Forms.Button();
+            this.textBoxInv = new System.Windows.Forms.TextBox();
+            this.buttonInv = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -208,11 +214,77 @@
             this.dataGridView1.Size = new System.Drawing.Size(370, 251);
             this.dataGridView1.TabIndex = 23;
             // 
+            // buttonDesconectar
+            // 
+            this.buttonDesconectar.Enabled = false;
+            this.buttonDesconectar.Location = new System.Drawing.Point(666, 285);
+            this.buttonDesconectar.Name = "buttonDesconectar";
+            this.buttonDesconectar.Size = new System.Drawing.Size(120, 40);
+            this.buttonDesconectar.TabIndex = 24;
+            this.buttonDesconectar.Text = "Desconectar";
+            this.buttonDesconectar.UseVisualStyleBackColor = true;
+            this.buttonDesconectar.Click += new System.EventHandler(this.buttonDesconectar_Click);
+            // 
+            // labelInv
+            // 
+            this.labelInv.AutoSize = true;
+            this.labelInv.Location = new System.Drawing.Point(120, 270);
+            this.labelInv.Name = "labelInv";
+            this.labelInv.Size = new System.Drawing.Size(63, 16);
+            this.labelInv.TabIndex = 25;
+            this.labelInv.Text = "Invitación";
+            // 
+            // buttonDeny
+            // 
+            this.buttonDeny.Enabled = false;
+            this.buttonDeny.Location = new System.Drawing.Point(44, 289);
+            this.buttonDeny.Name = "buttonDeny";
+            this.buttonDeny.Size = new System.Drawing.Size(99, 36);
+            this.buttonDeny.TabIndex = 26;
+            this.buttonDeny.Text = "Rechazar";
+            this.buttonDeny.UseVisualStyleBackColor = true;
+            this.buttonDeny.Click += new System.EventHandler(this.buttonDeny_Click);
+            // 
+            // buttonAccept
+            // 
+            this.buttonAccept.Enabled = false;
+            this.buttonAccept.Location = new System.Drawing.Point(149, 289);
+            this.buttonAccept.Name = "buttonAccept";
+            this.buttonAccept.Size = new System.Drawing.Size(99, 36);
+            this.buttonAccept.TabIndex = 27;
+            this.buttonAccept.Text = "Aceptar";
+            this.buttonAccept.UseVisualStyleBackColor = true;
+            this.buttonAccept.Click += new System.EventHandler(this.buttonAccept_Click);
+            // 
+            // textBoxInv
+            // 
+            this.textBoxInv.Location = new System.Drawing.Point(372, 287);
+            this.textBoxInv.Name = "textBoxInv";
+            this.textBoxInv.Size = new System.Drawing.Size(146, 22);
+            this.textBoxInv.TabIndex = 28;
+            // 
+            // buttonInv
+            // 
+            this.buttonInv.Enabled = false;
+            this.buttonInv.Location = new System.Drawing.Point(407, 315);
+            this.buttonInv.Name = "buttonInv";
+            this.buttonInv.Size = new System.Drawing.Size(75, 23);
+            this.buttonInv.TabIndex = 29;
+            this.buttonInv.Text = "Invitar";
+            this.buttonInv.UseVisualStyleBackColor = true;
+            this.buttonInv.Click += new System.EventHandler(this.buttonInv_Click);
+            // 
             // Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 277);
+            this.ClientSize = new System.Drawing.Size(795, 350);
+            this.Controls.Add(this.buttonInv);
+            this.Controls.Add(this.textBoxInv);
+            this.Controls.Add(this.buttonAccept);
+            this.Controls.Add(this.buttonDeny);
+            this.Controls.Add(this.labelInv);
+            this.Controls.Add(this.buttonDesconectar);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -226,6 +298,7 @@
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -247,6 +320,12 @@
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Button buttonDesconectar;
+        private System.Windows.Forms.Label labelInv;
+        private System.Windows.Forms.Button buttonDeny;
+        private System.Windows.Forms.Button buttonAccept;
+        private System.Windows.Forms.TextBox textBoxInv;
+        private System.Windows.Forms.Button buttonInv;
     }
 }
 
