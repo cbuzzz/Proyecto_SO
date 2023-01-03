@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9070;
+int puerto = 9060;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -108,7 +108,9 @@ int Elimina(ListaConectados* lista, char nombre[20])
 {
 	printf("%s:%d \n", lista->conectados[0].nombre, lista->num);
 	printf("Nombre recibido como parametro: %s \n", nombre);
+	
 	int pos = DamePosicion(lista, nombre);
+	
 	if (pos == -1)
 	{
 		return -1;
@@ -228,35 +230,6 @@ int DameIDJugador(MYSQL* conn)
 	}
 }
 
-//
-// Función para invitar
-// Devuelve la lista con los sockets de los jugadores a los que se desea invitar
-// en el proceso de envío
-//
-/*int[] Invitar(ListaConectados* lista, char username[30])*/
-/*{*/
-/*	int[] sockets;*/
-/*	int i;*/
-/*	int j=0;*/
-/*	int encontrado=0;*/
-/*	for (i = 0; i < lista->num; i++)*/
-/*	{*/
-/*		if(strcomp(lista->conectados[i].nombre,username)==0){*/
-/*			sockets[j] = lista->conectados[i].socket;*/
-/*			j++;*/
-/*			encontrado=1;*/
-/*		}*/
-/*	}*/
-/*	if(encontrado = 1) */
-/*		return sockets;*/
-/*	else */
-/*		return sockets;*/
-/*}*/
-//
-//
-// Funcion para registrar a un usuario.
-// Devuelve un 0 si lo registra correctamente, un 1 si hay algun error o un -1 si el username indicado por el cliente ya existe en la base de datos
-//
 int Registrar(char respuesta[200], char name[30], char username[20], char password[20], MYSQL* conn)
 {
 	
@@ -366,17 +339,21 @@ void* AtenderCliente(void* socket)
 		{
 			p = strtok(NULL, "/");
 			strcpy(username, p);
-			
+			pthread_mutex_lock(&mutex);
 			int res = Elimina(&miLista, username);
+			pthread_mutex_unlock(&mutex);
 			if (res == 0){
 				printf("Usuario eliminado de la lista de conectados\n");
 				strcpy(conectados,"3/");
+				pthread_mutex_lock(&mutex);
 				DameConectados(&miLista,conectados);
+				pthread_mutex_unlock(&mutex);
 				printf(conectados);
 				for(i=0;i<miLista.num;i++){
-					pthread_mutex_lock(&mutex);
+					
 					write(miLista.conectados[i].socket, conectados, strlen(conectados));
-					pthread_mutex_unlock(&mutex);
+					
+					
 				}
 				//terminar = 1;
 			}
@@ -398,14 +375,18 @@ void* AtenderCliente(void* socket)
 			
 			if (result == 0)
 			{
+				pthread_mutex_lock(&mutex);
 				int res =Pon(&miLista,username,sock_conn);
+				pthread_mutex_unlock(&mutex);
 				strcpy(conectados,"3/");
+				pthread_mutex_lock(&mutex);
 				DameConectados(&miLista,conectados);
+				pthread_mutex_unlock(&mutex);
 				printf(conectados);
 				for(i=0;i<miLista.num;i++){
-					pthread_mutex_lock(&mutex);
+					
 					write(miLista.conectados[i].socket, conectados, strlen(conectados));
-					pthread_mutex_unlock(&mutex);
+					
 				}
 				printf("%s\n", username);
 				if (res == 0)
@@ -413,17 +394,17 @@ void* AtenderCliente(void* socket)
 				if (res != 0)
 					printf("Lista llena. No se pudo anadir el usuario a la lista de conectados.\n");
 				strcpy(respuesta,"1/Si");
-				pthread_mutex_lock(&mutex);
+				
 				write(sock_conn, respuesta, strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 			else
 			{
 				printf("El usuario NO ha podido loguearse, revise si el usuario y la contrasena coinciden.");
 				strcpy(respuesta, "1/No");
-				pthread_mutex_lock(&mutex);
+				
 				write(sock_conn, respuesta, strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 		}
 		//
@@ -443,21 +424,21 @@ void* AtenderCliente(void* socket)
 			int res = Registrar(respuesta, name, password, username, conn);
 			if(res == 0){
 				strcpy(respuesta,"2/Si");
-				pthread_mutex_lock(&mutex);
+				
 				write(sock_conn,respuesta,strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 			else if(res==1){
 				strcpy(respuesta,"2/No");
-				pthread_mutex_lock(&mutex);
+				
 				write(sock_conn,respuesta,strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 			else{
 				strcpy(respuesta,"2/F");
-				pthread_mutex_lock(&mutex);
+				
 				write(sock_conn,respuesta,strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 		}
 		//
@@ -471,18 +452,20 @@ void* AtenderCliente(void* socket)
 			strcpy(target, p);
 			p = strtok(NULL, "/");
 			strcpy(source, p);
+			pthread_mutex_lock(&mutex);
 			int res = DameSocket(&miLista, target);
+			pthread_mutex_unlock(&mutex);
 			if(res == -1){
 				strcpy(respuesta,"4/No");
-				pthread_mutex_lock(&mutex);
+				
 				write(sock_conn,respuesta,strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 			else {
 				sprintf(respuesta,"4/Si/%s",source);
-				pthread_mutex_lock(&mutex);
+				
 				write(res,respuesta,strlen(respuesta));
-				pthread_mutex_unlock(&mutex);
+				
 			}
 		}
 		
@@ -535,3 +518,4 @@ int main(int argc, char* argv[])
 		i++;
 	}
 }
+

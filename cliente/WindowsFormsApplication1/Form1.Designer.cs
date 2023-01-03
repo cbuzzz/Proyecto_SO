@@ -211,13 +211,13 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 57;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(370, 251);
+            this.dataGridView1.Size = new System.Drawing.Size(251, 251);
             this.dataGridView1.TabIndex = 23;
             // 
             // buttonDesconectar
             // 
             this.buttonDesconectar.Enabled = false;
-            this.buttonDesconectar.Location = new System.Drawing.Point(666, 285);
+            this.buttonDesconectar.Location = new System.Drawing.Point(673, 21);
             this.buttonDesconectar.Name = "buttonDesconectar";
             this.buttonDesconectar.Size = new System.Drawing.Size(120, 40);
             this.buttonDesconectar.TabIndex = 24;
@@ -228,7 +228,7 @@
             // labelInv
             // 
             this.labelInv.AutoSize = true;
-            this.labelInv.Location = new System.Drawing.Point(120, 270);
+            this.labelInv.Location = new System.Drawing.Point(539, 283);
             this.labelInv.Name = "labelInv";
             this.labelInv.Size = new System.Drawing.Size(63, 16);
             this.labelInv.TabIndex = 25;
@@ -237,7 +237,7 @@
             // buttonDeny
             // 
             this.buttonDeny.Enabled = false;
-            this.buttonDeny.Location = new System.Drawing.Point(44, 289);
+            this.buttonDeny.Location = new System.Drawing.Point(463, 302);
             this.buttonDeny.Name = "buttonDeny";
             this.buttonDeny.Size = new System.Drawing.Size(99, 36);
             this.buttonDeny.TabIndex = 26;
@@ -248,7 +248,7 @@
             // buttonAccept
             // 
             this.buttonAccept.Enabled = false;
-            this.buttonAccept.Location = new System.Drawing.Point(149, 289);
+            this.buttonAccept.Location = new System.Drawing.Point(568, 302);
             this.buttonAccept.Name = "buttonAccept";
             this.buttonAccept.Size = new System.Drawing.Size(99, 36);
             this.buttonAccept.TabIndex = 27;
@@ -258,15 +258,15 @@
             // 
             // textBoxInv
             // 
-            this.textBoxInv.Location = new System.Drawing.Point(372, 287);
+            this.textBoxInv.Location = new System.Drawing.Point(673, 69);
             this.textBoxInv.Name = "textBoxInv";
-            this.textBoxInv.Size = new System.Drawing.Size(146, 22);
+            this.textBoxInv.Size = new System.Drawing.Size(120, 22);
             this.textBoxInv.TabIndex = 28;
             // 
             // buttonInv
             // 
             this.buttonInv.Enabled = false;
-            this.buttonInv.Location = new System.Drawing.Point(407, 315);
+            this.buttonInv.Location = new System.Drawing.Point(699, 97);
             this.buttonInv.Name = "buttonInv";
             this.buttonInv.Size = new System.Drawing.Size(75, 23);
             this.buttonInv.TabIndex = 29;
@@ -278,7 +278,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(795, 350);
+            this.ClientSize = new System.Drawing.Size(797, 350);
             this.Controls.Add(this.buttonInv);
             this.Controls.Add(this.textBoxInv);
             this.Controls.Add(this.buttonAccept);

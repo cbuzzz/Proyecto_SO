@@ -27,7 +27,7 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaActAccept();
         delegate void DelegadoParaActDeny();
         delegate void DelegadoParaActInv();
-        int puerto = 9070;
+        int puerto = 9060;
         string usuario;
         public Cliente()
         {
@@ -122,8 +122,6 @@ namespace WindowsFormsApplication1
                             Invoke(delegadoBorrarIniciar, new object[] { });
                             Invoke(delegadoDeactLogIn, new object[] { });
                             Invoke(delegadoActDes, new object[] { });
-                            Invoke(delegadoAccept, new object[] { });
-                            Invoke(delegadoDeny, new object[] { });
                             Invoke(delegadoActInv, new object[] { });
                         }
                         else if (trozos[1] == "No")
