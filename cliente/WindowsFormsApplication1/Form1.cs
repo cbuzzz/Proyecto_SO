@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using System.Security.Policy;
+using System.Xml.Linq;
 
 namespace WindowsFormsApplication1
 {
@@ -18,8 +19,10 @@ namespace WindowsFormsApplication1
         Socket server;
         Thread atender;
         delegate void DelegadoParaBorrar();
-        delegate void DelegadoParaEscribirDGV(string conectados);
-        delegate void DelegadoParaLimpiarDGV();
+        delegate void DelegadoParaEscribirList(string conectados);
+        delegate void DelegadoParaEscribirChat(string user, string mensaje);
+        delegate void DelegadoParaLimpiarList();
+        delegate void DelegadoParaLimpiarChat();
         delegate void DelegadoParaDesactLogIn();
         delegate void DelegadoParaActLogIn();
         delegate void DelegadoParaActDesconectar();
@@ -33,6 +36,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             dataGridView1.ColumnCount = 1;
+            dataGridView2.ColumnCount = 2;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -52,12 +56,20 @@ namespace WindowsFormsApplication1
             textBoxUsername.Text = "";
             textBoxPassword.Text = "";
         }
-        public void AddRow(string trozo)
+        public void AddRowList(string trozo)
         {
             int rowID = dataGridView1.Rows.Add();
             DataGridViewRow row = dataGridView1.Rows[rowID];
             row.Cells[0].Value = trozo;
             
+        }
+        public void AddRowChat(string user, string mensaje)
+        {
+            int rowID = dataGridView2.Rows.Add();
+            DataGridViewRow row = dataGridView2.Rows[rowID];
+            row.Cells[0].Value = user;
+            row.Cells[1].Value = mensaje;
+
         }
         public void LoginDeact()
         {
@@ -71,9 +83,13 @@ namespace WindowsFormsApplication1
         {
             buttonDesconectar.Enabled = true;  
         }
-        public void ClearDGV()
+        public void ClearList()
         {
             dataGridView1.Rows.Clear();
+        }
+        public void ClearChat()
+        {
+            dataGridView2.Rows.Clear();
         }
         public void EscribirInv(string username)
         {
@@ -104,14 +120,16 @@ namespace WindowsFormsApplication1
                 codigo = Convert.ToInt32(trozos[0]);
                 DelegadoParaBorrar delegadoBorrarRegistrar = new DelegadoParaBorrar(BorraTextBoxRegistrar);
                 DelegadoParaBorrar delegadoBorrarIniciar = new DelegadoParaBorrar(BorraTextBoxIniciar);
-                DelegadoParaEscribirDGV delegadoFila = new DelegadoParaEscribirDGV(AddRow);
-                DelegadoParaLimpiarDGV delegadoClear = new DelegadoParaLimpiarDGV(ClearDGV);
+                DelegadoParaEscribirList delegadoFilaList = new DelegadoParaEscribirList(AddRowList);
+                DelegadoParaLimpiarList delegadoClearList = new DelegadoParaLimpiarList(ClearList);
                 DelegadoParaDesactLogIn delegadoDeactLogIn = new DelegadoParaDesactLogIn(LoginDeact);
                 DelegadoParaActDesconectar delegadoActDes = new DelegadoParaActDesconectar(DesconectAct);
                 DelegadoParaEscribirInv delegadoEscInv = new DelegadoParaEscribirInv(EscribirInv);
                 DelegadoParaActAccept delegadoAccept = new DelegadoParaActAccept(ActAccept);
                 DelegadoParaActDeny delegadoDeny = new DelegadoParaActDeny(ActDeny);
                 DelegadoParaActInv delegadoActInv = new DelegadoParaActInv(ActInv);
+                DelegadoParaLimpiarChat delegadoClearChat = new DelegadoParaLimpiarChat(ClearChat);
+                DelegadoParaEscribirChat delegadoFilaChat = new DelegadoParaEscribirChat(AddRowChat);
                 switch (codigo)
                 {
                     case 1:
@@ -147,10 +165,10 @@ namespace WindowsFormsApplication1
                         }
                         break;
                     case 3:
-                        Invoke(delegadoClear, new object[] { });
+                        Invoke(delegadoClearList, new object[] { });
                         int i;
                         for (i = 1; i < trozos.Length-1; i++)
-                            Invoke(delegadoFila, new object[] { trozos[i]});
+                            Invoke(delegadoFilaList, new object[] { trozos[i]});
                         break;
                     case 4:
                         if (trozos[1] == "Si")
@@ -164,6 +182,36 @@ namespace WindowsFormsApplication1
                             MessageBox.Show("No existe ningún usuario conectado con ese username");
                         }
 
+                        break;
+                    case 5:
+                        if (trozos[1] == "No")
+                        {
+                            MessageBox.Show("Hubo en error al envíar el mensaje");
+                        }
+                        else 
+                        {
+                            Invoke(delegadoClearChat, new object[] { });
+                            int j;
+                            for (j = 1; j < trozos.Length - 1; j=j+2)
+                                Invoke(delegadoFilaChat, new object[] { trozos[j] , trozos[j+1] });
+                        }
+                        break;
+                    case 6:
+                        if (trozos[1] == "Si")
+                        {
+                            MessageBox.Show("El usuario " + textBoxUserDown.Text + ", ha sido eliminado correctamente");
+                            atender.Abort();
+                        }
+                        else if (trozos[1] == "No")
+                        {
+                            MessageBox.Show("El username no existe o la contraseña es incorrecta");
+                            atender.Abort();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ha ocurrido un error al dar de baja el usuario");
+                            atender.Abort();
+                        }
                         break;
 
 
@@ -227,36 +275,39 @@ namespace WindowsFormsApplication1
                 MessageBox.Show("Por favor, rellene todos los campos");
             }
             else if (pass1 != pass2) MessageBox.Show("Las contraseñas no coinciden");
-
-            //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
-            //al que deseamos conectarnos
-            IPAddress direc = IPAddress.Parse("192.168.56.102");
-            IPEndPoint ipep = new IPEndPoint(direc, puerto);
-
-
-            //Creamos el socket 
-            server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            try
+            else
             {
-                server.Connect(ipep);//Intentamos conectar el socket
-                this.BackColor = Color.Green;
-                MessageBox.Show("Conectado");
+                //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
+                //al que deseamos conectarnos
+                IPAddress direc = IPAddress.Parse("192.168.56.102");
+                IPEndPoint ipep = new IPEndPoint(direc, puerto);
 
+
+                //Creamos el socket 
+                server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                try
+                {
+                    server.Connect(ipep);//Intentamos conectar el socket
+                    this.BackColor = Color.Green;
+                    MessageBox.Show("Conectado");
+
+                }
+                catch (SocketException ex)
+                {
+                    //Si hay excepcion imprimimos error y salimos del programa con return 
+                    MessageBox.Show("No he podido conectar con el servidor");
+                    return;
+                }
+
+                mensaje = "2/" + name + "/" + user + "/" + pass1;
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+
+                ThreadStart ts = delegate { AtenderServidor(); };
+                atender = new Thread(ts);
+                atender.Start();
             }
-            catch (SocketException ex)
-            {
-                //Si hay excepcion imprimimos error y salimos del programa con return 
-                MessageBox.Show("No he podido conectar con el servidor");
-                return;
-            }
-
-            mensaje = "2/" + name + "/" + user + "/" + pass1;
-            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
-            server.Send(msg);
-
-            ThreadStart ts = delegate { AtenderServidor(); };
-            atender = new Thread(ts);
-            atender.Start();
+            
         }
 
         private void buttonDesconectar_Click(object sender, EventArgs e)
@@ -268,7 +319,7 @@ namespace WindowsFormsApplication1
             this.BackColor = Color.Gray;
             DelegadoParaActLogIn delegadoActLogIn = new DelegadoParaActLogIn(LoginAct);
             Invoke(delegadoActLogIn, new object[] { });
-            DelegadoParaLimpiarDGV delegadoDGV = new DelegadoParaLimpiarDGV(ClearDGV);
+            DelegadoParaLimpiarList delegadoDGV = new DelegadoParaLimpiarList(ClearList);
             Invoke(delegadoDGV, new object[] { });
         }
 
@@ -292,6 +343,63 @@ namespace WindowsFormsApplication1
         private void buttonDeny_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonChat_Click(object sender, EventArgs e)
+        {
+            if (textBoxChat.Text == "")
+                MessageBox.Show("No es posible envíar mensajes vacíos por el chat");
+            else
+            {
+                string mensaje;
+                mensaje = "5/" + usuario + "/" + textBoxChat.Text;
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+            }
+        }
+
+        private void buttonDown_Click(object sender, EventArgs e)
+        {
+            string user = textBoxUserDown.Text;
+            string pass1 = textBoxPassDown.Text;
+            string pass2 = textBoxPassDown2.Text;
+            string mensaje;
+            if (user == "" || pass1 == "" || pass2 == "")
+            {
+                MessageBox.Show("Por favor, rellene todos los campos");
+            }
+            else if (pass1 != pass2) MessageBox.Show("Las contraseñas no coinciden");
+            else
+            {
+                //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
+                //al que deseamos conectarnos
+                IPAddress direc = IPAddress.Parse("192.168.56.102");
+                IPEndPoint ipep = new IPEndPoint(direc, puerto);
+
+
+                //Creamos el socket 
+                server = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                try
+                {
+                    server.Connect(ipep);//Intentamos conectar el socket
+
+                }
+                catch (SocketException ex)
+                {
+                    //Si hay excepcion imprimimos error y salimos del programa con return 
+                    MessageBox.Show("No he podido conectar con el servidor");
+                    return;
+                }
+
+                mensaje = "6/" + user + "/" + pass1;
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+
+                ThreadStart ts = delegate { AtenderServidor(); };
+                atender = new Thread(ts);
+                atender.Start();
+            }
+            
         }
     }
 }

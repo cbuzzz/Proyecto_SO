@@ -29,12 +29,54 @@ typedef struct
 	int num;
 } ListaConectados;
 
+typedef struct
+{
+	char mensaje[400];
+	char user[30];
+} Mensaje;
+
+typedef struct
+{
+	Mensaje mensajes[100];
+	int num;
+} Chat;
+
 
 
 
 char ID[3];
 ListaConectados miLista;
+Chat miChat;
 
+//
+//Funcion que pone mensaje en el chat
+//Anade un nuevo mensjae en el chat o devuelve un -1 si el chat está lleno
+//
+int PonChat(Chat* chat, char mensaje[500], char username[30])
+{
+	if (chat->num == 100)
+	{
+		return -1;
+	}
+	else
+	{
+		strcpy(chat->mensajes[chat->num].mensaje, mensaje);
+		strcpy(chat->mensajes[chat->num].user, username);
+		chat->num++;
+		return 0;
+	}
+}
+//
+// Funcion que llena un vector de caracteres con los mensajes del chat
+//
+void DameChat(Chat* chat, char mensajes[5000])
+{
+	int i;
+	for (i = 0; i < chat->num; i++)
+	{
+		sprintf(mensajes, "%s%s/%s/", mensajes, chat->mensajes[i].user, chat->mensajes[i].mensaje);
+	}
+}
 //
 //Funcion que pone en la lista de conectados un usuario
 //Anade un nuevo conectado en la lista de conectados o devuelve un -1 si la lista esta llena
@@ -238,7 +280,7 @@ int Registrar(char respuesta[200], char name[30], char username[20], char passwo
 	MYSQL_ROW row;
 	char consulta[200];
 	
-	sprintf(consulta, "SELECT * FROM JUGADOR WHERE JUGADOR.USERNAME='%s'",username);
+	sprintf(consulta, "SELECT * FROM JUGADOR WHERE JUGADOR.USERNAME='%s';",username);
 	err = mysql_query(conn, consulta);
 	if (err != 0)
 	{
@@ -253,7 +295,7 @@ int Registrar(char respuesta[200], char name[30], char username[20], char passwo
 	{
 		int ID = DameIDJugador(conn);
 		int IDnum = ID + 1;
-		sprintf(consulta,"INSERT INTO JUGADOR VALUES(%d,'%s','%s','%s');",IDnum,name,username,password);
+		sprintf(consulta,"INSERT INTO JUGADOR VALUES(%d,'%s','%s','%s');",IDnum,name,password,username);
 		
 		printf("consulta = %s\n", consulta);
 		
@@ -274,6 +316,47 @@ int Registrar(char respuesta[200], char name[30], char username[20], char passwo
 		return -1;
 }
 
+int DarDeBaja(char respuesta[200], char username[20], char password[20], MYSQL* conn)
+{
+	
+	int err;
+	MYSQL_RES* resultado;
+	MYSQL_ROW row;
+	char consulta[200];
+	
+	sprintf(consulta, "SELECT * FROM JUGADOR WHERE JUGADOR.USERNAME='%s' AND JUGADOR.PASSWORD='%s';",username,password);
+	err = mysql_query(conn, consulta);
+	if (err != 0)
+	{
+		printf("Consulta mal hecha %u %s\n", mysql_errno(conn), mysql_error(conn));
+		exit(1);
+	}
+	
+	resultado = mysql_store_result(conn);
+	row = mysql_fetch_row(resultado);
+	
+	if (row != NULL)
+	{
+		sprintf(consulta,"DELETE FROM JUGADOR WHERE JUGADOR.USERNAME='%s' AND JUGADOR.PASSWORD='%s';",username,password);
+		
+		printf("consulta = %s\n", consulta);
+		
+		err = mysql_query(conn, consulta);
+		//parte de mysql
+		/*char user[20];*/
+		
+		if (err != 0)
+		{
+			printf("Error al crear la conexion: %u %s\n", mysql_errno(conn), mysql_error(conn));
+			return 1;
+			exit(1);
+		}
+		
+		return 0;
+	}
+	else
+		return -1;
+}
 //
 //   A T E N D E R   C L I E N T E
 //
@@ -332,6 +415,7 @@ void* AtenderCliente(void* socket)
 		char password[50];
 		char name[50];
 		char conectados[200];
+		char mensajes[5000];
 		//
 		// Peticion de DESCONEXION.
 		//
@@ -358,7 +442,9 @@ void* AtenderCliente(void* socket)
 				//terminar = 1;
 			}
 			else
-				printf("Error al eliminar el usuario de la lista de conectados\n");
+				strcpy(respuesta,"Error al eliminar el usuario de la lista de conectados\n");
+				write(sock_conn, respuesta, strlen(respuesta));
+				
 		}
 		//
 		// Peticion de LOGUEAR.
@@ -382,7 +468,7 @@ void* AtenderCliente(void* socket)
 				pthread_mutex_lock(&mutex);
 				DameConectados(&miLista,conectados);
 				pthread_mutex_unlock(&mutex);
-				printf(conectados);
+				printf("Usuarios conectados: %s\n",conectados);
 				for(i=0;i<miLista.num;i++){
 					
 					write(miLista.conectados[i].socket, conectados, strlen(conectados));
@@ -421,7 +507,7 @@ void* AtenderCliente(void* socket)
 			p = strtok(NULL, "/");
 			strcpy(password, p);
 			
-			int res = Registrar(respuesta, name, password, username, conn);
+			int res = Registrar(respuesta, name, username, password, conn);
 			if(res == 0){
 				strcpy(respuesta,"2/Si");
 				
@@ -465,6 +551,66 @@ void* AtenderCliente(void* socket)
 				sprintf(respuesta,"4/Si/%s",source);
 				
 				write(res,respuesta,strlen(respuesta));
+				
+			}
+		}
+		//
+		// Peticion mensaje Chat
+		//
+		else if (codigo == 5)
+		{
+			p = strtok(NULL, "/");
+			strcpy(username, p);
+			char mensaje[200];
+			p = strtok(NULL, "/");
+			strcpy(mensaje, p);
+			pthread_mutex_lock(&mutex);
+			int res = PonChat(&miChat,mensaje,username);
+			pthread_mutex_unlock(&mutex);
+			strcpy(mensajes,"5/");
+			pthread_mutex_lock(&mutex);
+			DameChat(&miChat,mensajes);
+			pthread_mutex_unlock(&mutex);
+			
+			if(res == -1){
+				strcpy(respuesta,"5/No");
+				write(sock_conn,respuesta,strlen(respuesta));
+				
+			}
+			else {
+				printf("Chat:%s\n",mensajes);
+				for(i=0;i<miLista.num;i++){
+				
+					write(miLista.conectados[i].socket, mensajes, strlen(mensajes));
+					
+				}
+			}
+		}
+		else if (codigo == 6)
+		{
+			p = strtok(NULL, "/");
+			strcpy(username, p);
+			
+			p = strtok(NULL, "/");
+			strcpy(password, p);
+			
+			int res = DarDeBaja(respuesta, username, password, conn);
+			if(res == 0){
+				strcpy(respuesta,"6/Si");
+				
+				write(sock_conn,respuesta,strlen(respuesta));
+				
+			}
+			else if(res==-1){
+				strcpy(respuesta,"6/No");
+				
+				write(sock_conn,respuesta,strlen(respuesta));
+				
+			}
+			else{
+				strcpy(respuesta,"6/F");
+				
+				write(sock_conn,respuesta,strlen(respuesta));
 				
 			}
 		}
