@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9060;
+int puerto = 9070;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -29,54 +29,14 @@ typedef struct
 	int num;
 } ListaConectados;
 
-typedef struct
-{
-	char mensaje[400];
-	char user[30];
-} Mensaje;
-
-typedef struct
-{
-	Mensaje mensajes[100];
-	int num;
-} Chat;
 
 
 
 
 char ID[3];
 ListaConectados miLista;
-Chat miChat;
 
-//
-//Funcion que pone mensaje en el chat
-//Anade un nuevo mensjae en el chat o devuelve un -1 si el chat está lleno
-//
-int PonChat(Chat* chat, char mensaje[500], char username[30])
-{
-	if (chat->num == 100)
-	{
-		return -1;
-	}
-	else
-	{
-		strcpy(chat->mensajes[chat->num].mensaje, mensaje);
-		strcpy(chat->mensajes[chat->num].user, username);
-		chat->num++;
-		return 0;
-	}
-}
-//
-// Funcion que llena un vector de caracteres con los mensajes del chat
-//
-void DameChat(Chat* chat, char mensajes[5000])
-{
-	int i;
-	for (i = 0; i < chat->num; i++)
-	{
-		sprintf(mensajes, "%s%s/%s/", mensajes, chat->mensajes[i].user, chat->mensajes[i].mensaje);
-	}
-}
+
 //
 //Funcion que pone en la lista de conectados un usuario
 //Anade un nuevo conectado en la lista de conectados o devuelve un -1 si la lista esta llena
@@ -150,7 +110,7 @@ int Elimina(ListaConectados* lista, char nombre[20])
 {
 	printf("%s:%d \n", lista->conectados[0].nombre, lista->num);
 	printf("Nombre recibido como parametro: %s \n", nombre);
-	
+
 	int pos = DamePosicion(lista, nombre);
 	
 	if (pos == -1)
@@ -415,7 +375,6 @@ void* AtenderCliente(void* socket)
 		char password[50];
 		char name[50];
 		char conectados[200];
-		char mensajes[5000];
 		//
 		// Peticion de DESCONEXION.
 		//
@@ -427,24 +386,24 @@ void* AtenderCliente(void* socket)
 			int res = Elimina(&miLista, username);
 			pthread_mutex_unlock(&mutex);
 			if (res == 0){
+				strcpy(respuesta,"0/Si");
+				write(sock_conn, respuesta, strlen(respuesta));
 				printf("Usuario eliminado de la lista de conectados\n");
 				strcpy(conectados,"3/");
 				pthread_mutex_lock(&mutex);
 				DameConectados(&miLista,conectados);
 				pthread_mutex_unlock(&mutex);
-				printf(conectados);
+				printf("Usuarios conectados: %s\n",conectados);
 				for(i=0;i<miLista.num;i++){
-					
 					write(miLista.conectados[i].socket, conectados, strlen(conectados));
-					
-					
 				}
 				//terminar = 1;
 			}
-			else
-				strcpy(respuesta,"Error al eliminar el usuario de la lista de conectados\n");
+			else{
+				strcpy(respuesta,"0/No");
+				printf("Error al eliminar el usuario de la lista de conectados\n");
 				write(sock_conn, respuesta, strlen(respuesta));
-				
+			}
 		}
 		//
 		// Peticion de LOGUEAR.
@@ -457,9 +416,9 @@ void* AtenderCliente(void* socket)
 			p = strtok(NULL, "/");
 			strcpy(password, p);
 			
-			int result = Login(respuesta, username, password, conn);
+			int res = Login(respuesta, username, password, conn);
 			
-			if (result == 0)
+			if (res == 0)
 			{
 				pthread_mutex_lock(&mutex);
 				int res =Pon(&miLista,username,sock_conn);
@@ -564,28 +523,14 @@ void* AtenderCliente(void* socket)
 			char mensaje[200];
 			p = strtok(NULL, "/");
 			strcpy(mensaje, p);
-			pthread_mutex_lock(&mutex);
-			int res = PonChat(&miChat,mensaje,username);
-			pthread_mutex_unlock(&mutex);
-			strcpy(mensajes,"5/");
-			pthread_mutex_lock(&mutex);
-			DameChat(&miChat,mensajes);
-			pthread_mutex_unlock(&mutex);
+		    sprintf(respuesta,"5/%s/%s",username,mensaje);
+		    for(i=0;i<miLista.num;i++)
+				write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 			
-			if(res == -1){
-				strcpy(respuesta,"5/No");
-				write(sock_conn,respuesta,strlen(respuesta));
-				
-			}
-			else {
-				printf("Chat:%s\n",mensajes);
-				for(i=0;i<miLista.num;i++){
-				
-					write(miLista.conectados[i].socket, mensajes, strlen(mensajes));
-					
-				}
-			}
 		}
+		//
+		// Petición dar de baja a un usuario
+		//
 		else if (codigo == 6)
 		{
 			p = strtok(NULL, "/");

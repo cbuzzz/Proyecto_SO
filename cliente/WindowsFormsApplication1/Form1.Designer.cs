@@ -51,22 +51,24 @@
             this.buttonAccept = new System.Windows.Forms.Button();
             this.textBoxInv = new System.Windows.Forms.TextBox();
             this.buttonInv = new System.Windows.Forms.Button();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.textBoxChat = new System.Windows.Forms.TextBox();
             this.buttonChat = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.buttonDown = new System.Windows.Forms.Button();
+            this.textBoxPassDown2 = new System.Windows.Forms.TextBox();
+            this.textBoxPassDown = new System.Windows.Forms.TextBox();
+            this.textBoxUserDown = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.textBoxUserDown = new System.Windows.Forms.TextBox();
-            this.textBoxPassDown = new System.Windows.Forms.TextBox();
-            this.textBoxPassDown2 = new System.Windows.Forms.TextBox();
-            this.buttonDown = new System.Windows.Forms.Button();
+            this.labelSuperU = new System.Windows.Forms.Label();
+            this.labelTextList = new System.Windows.Forms.Label();
+            this.labelTextChat = new System.Windows.Forms.Label();
+            this.listBoxChat = new System.Windows.Forms.ListBox();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -158,7 +160,7 @@
             this.groupBox2.Controls.Add(this.labelUsername);
             this.groupBox2.Controls.Add(this.textBoxPassword);
             this.groupBox2.Controls.Add(this.label4);
-            this.groupBox2.Location = new System.Drawing.Point(12, 12);
+            this.groupBox2.Location = new System.Drawing.Point(12, 35);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(386, 100);
             this.groupBox2.TabIndex = 17;
@@ -186,7 +188,7 @@
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.textBoxPasswordLog2);
             this.groupBox3.Controls.Add(this.label6);
-            this.groupBox3.Location = new System.Drawing.Point(12, 118);
+            this.groupBox3.Location = new System.Drawing.Point(12, 141);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(386, 149);
             this.groupBox3.TabIndex = 18;
@@ -222,17 +224,17 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(404, 16);
+            this.dataGridView1.Location = new System.Drawing.Point(404, 35);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 57;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(215, 251);
+            this.dataGridView1.Size = new System.Drawing.Size(215, 260);
             this.dataGridView1.TabIndex = 23;
             // 
             // buttonDesconectar
             // 
             this.buttonDesconectar.Enabled = false;
-            this.buttonDesconectar.Location = new System.Drawing.Point(941, 364);
+            this.buttonDesconectar.Location = new System.Drawing.Point(941, 387);
             this.buttonDesconectar.Name = "buttonDesconectar";
             this.buttonDesconectar.Size = new System.Drawing.Size(120, 40);
             this.buttonDesconectar.TabIndex = 24;
@@ -289,26 +291,17 @@
             this.buttonInv.UseVisualStyleBackColor = true;
             this.buttonInv.Click += new System.EventHandler(this.buttonInv_Click);
             // 
-            // dataGridView2
-            // 
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(625, 16);
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.RowHeadersWidth = 57;
-            this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(436, 251);
-            this.dataGridView2.TabIndex = 30;
-            // 
             // textBoxChat
             // 
-            this.textBoxChat.Location = new System.Drawing.Point(625, 287);
+            this.textBoxChat.Location = new System.Drawing.Point(625, 306);
             this.textBoxChat.Name = "textBoxChat";
             this.textBoxChat.Size = new System.Drawing.Size(355, 22);
             this.textBoxChat.TabIndex = 31;
             // 
             // buttonChat
             // 
-            this.buttonChat.Location = new System.Drawing.Point(986, 283);
+            this.buttonChat.Enabled = false;
+            this.buttonChat.Location = new System.Drawing.Point(986, 302);
             this.buttonChat.Name = "buttonChat";
             this.buttonChat.Size = new System.Drawing.Size(75, 31);
             this.buttonChat.TabIndex = 32;
@@ -323,7 +316,7 @@
             this.groupBox1.Controls.Add(this.buttonDeny);
             this.groupBox1.Controls.Add(this.textBoxInv);
             this.groupBox1.Controls.Add(this.buttonInv);
-            this.groupBox1.Location = new System.Drawing.Point(12, 273);
+            this.groupBox1.Location = new System.Drawing.Point(12, 296);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(220, 131);
             this.groupBox1.TabIndex = 33;
@@ -339,12 +332,52 @@
             this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label1);
             this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(238, 273);
+            this.groupBox4.Location = new System.Drawing.Point(238, 296);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(381, 131);
             this.groupBox4.TabIndex = 34;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Dar de baja un usuario";
+            // 
+            // buttonDown
+            // 
+            this.buttonDown.Location = new System.Drawing.Point(264, 46);
+            this.buttonDown.Name = "buttonDown";
+            this.buttonDown.Size = new System.Drawing.Size(112, 48);
+            this.buttonDown.TabIndex = 41;
+            this.buttonDown.Text = "Dar de baja";
+            this.buttonDown.UseVisualStyleBackColor = true;
+            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            // 
+            // textBoxPassDown2
+            // 
+            this.textBoxPassDown2.Location = new System.Drawing.Point(158, 91);
+            this.textBoxPassDown2.Name = "textBoxPassDown2";
+            this.textBoxPassDown2.Size = new System.Drawing.Size(100, 22);
+            this.textBoxPassDown2.TabIndex = 40;
+            // 
+            // textBoxPassDown
+            // 
+            this.textBoxPassDown.Location = new System.Drawing.Point(158, 59);
+            this.textBoxPassDown.Name = "textBoxPassDown";
+            this.textBoxPassDown.Size = new System.Drawing.Size(100, 22);
+            this.textBoxPassDown.TabIndex = 39;
+            // 
+            // textBoxUserDown
+            // 
+            this.textBoxUserDown.Location = new System.Drawing.Point(158, 28);
+            this.textBoxUserDown.Name = "textBoxUserDown";
+            this.textBoxUserDown.Size = new System.Drawing.Size(100, 22);
+            this.textBoxUserDown.TabIndex = 38;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(15, 91);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(137, 16);
+            this.label7.TabIndex = 37;
+            this.label7.Text = "Confirmar contraseña:";
             // 
             // label1
             // 
@@ -364,56 +397,54 @@
             this.label2.TabIndex = 36;
             this.label2.Text = "Contraseña:";
             // 
-            // label7
+            // labelSuperU
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 91);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(137, 16);
-            this.label7.TabIndex = 37;
-            this.label7.Text = "Confirmar contraseña:";
+            this.labelSuperU.AutoSize = true;
+            this.labelSuperU.Location = new System.Drawing.Point(9, 9);
+            this.labelSuperU.Name = "labelSuperU";
+            this.labelSuperU.Size = new System.Drawing.Size(0, 16);
+            this.labelSuperU.TabIndex = 35;
             // 
-            // textBoxUserDown
+            // labelTextList
             // 
-            this.textBoxUserDown.Location = new System.Drawing.Point(158, 28);
-            this.textBoxUserDown.Name = "textBoxUserDown";
-            this.textBoxUserDown.Size = new System.Drawing.Size(100, 22);
-            this.textBoxUserDown.TabIndex = 38;
+            this.labelTextList.AutoSize = true;
+            this.labelTextList.Location = new System.Drawing.Point(401, 16);
+            this.labelTextList.Name = "labelTextList";
+            this.labelTextList.Size = new System.Drawing.Size(131, 16);
+            this.labelTextList.TabIndex = 36;
+            this.labelTextList.Text = "Lista de conectados:";
             // 
-            // textBoxPassDown
+            // labelTextChat
             // 
-            this.textBoxPassDown.Location = new System.Drawing.Point(158, 59);
-            this.textBoxPassDown.Name = "textBoxPassDown";
-            this.textBoxPassDown.Size = new System.Drawing.Size(100, 22);
-            this.textBoxPassDown.TabIndex = 39;
+            this.labelTextChat.AutoSize = true;
+            this.labelTextChat.Location = new System.Drawing.Point(622, 16);
+            this.labelTextChat.Name = "labelTextChat";
+            this.labelTextChat.Size = new System.Drawing.Size(37, 16);
+            this.labelTextChat.TabIndex = 37;
+            this.labelTextChat.Text = "Chat:";
             // 
-            // textBoxPassDown2
+            // listBoxChat
             // 
-            this.textBoxPassDown2.Location = new System.Drawing.Point(158, 91);
-            this.textBoxPassDown2.Name = "textBoxPassDown2";
-            this.textBoxPassDown2.Size = new System.Drawing.Size(100, 22);
-            this.textBoxPassDown2.TabIndex = 40;
-            // 
-            // buttonDown
-            // 
-            this.buttonDown.Location = new System.Drawing.Point(264, 46);
-            this.buttonDown.Name = "buttonDown";
-            this.buttonDown.Size = new System.Drawing.Size(112, 48);
-            this.buttonDown.TabIndex = 41;
-            this.buttonDown.Text = "Dar de baja";
-            this.buttonDown.UseVisualStyleBackColor = true;
-            this.buttonDown.Click += new System.EventHandler(this.buttonDown_Click);
+            this.listBoxChat.FormattingEnabled = true;
+            this.listBoxChat.ItemHeight = 16;
+            this.listBoxChat.Location = new System.Drawing.Point(625, 35);
+            this.listBoxChat.Name = "listBoxChat";
+            this.listBoxChat.Size = new System.Drawing.Size(436, 260);
+            this.listBoxChat.TabIndex = 38;
             // 
             // Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 412);
+            this.ClientSize = new System.Drawing.Size(1067, 432);
+            this.Controls.Add(this.listBoxChat);
+            this.Controls.Add(this.labelTextChat);
+            this.Controls.Add(this.labelTextList);
+            this.Controls.Add(this.labelSuperU);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.buttonChat);
             this.Controls.Add(this.textBoxChat);
-            this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.buttonDesconectar);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox3);
@@ -428,7 +459,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -462,7 +492,6 @@
         private System.Windows.Forms.Button buttonAccept;
         private System.Windows.Forms.TextBox textBoxInv;
         private System.Windows.Forms.Button buttonInv;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.TextBox textBoxChat;
         private System.Windows.Forms.Button buttonChat;
         private System.Windows.Forms.GroupBox groupBox1;
@@ -474,6 +503,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelSuperU;
+        private System.Windows.Forms.Label labelTextList;
+        private System.Windows.Forms.Label labelTextChat;
+        private System.Windows.Forms.ListBox listBoxChat;
     }
 }
 

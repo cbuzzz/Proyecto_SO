@@ -20,29 +20,46 @@ namespace WindowsFormsApplication1
         Thread atender;
         delegate void DelegadoParaBorrar();
         delegate void DelegadoParaEscribirList(string conectados);
-        delegate void DelegadoParaEscribirChat(string user, string mensaje);
         delegate void DelegadoParaLimpiarList();
-        delegate void DelegadoParaLimpiarChat();
         delegate void DelegadoParaDesactLogIn();
         delegate void DelegadoParaActLogIn();
         delegate void DelegadoParaActDesconectar();
+        delegate void DelegadoParaDesactDesconectar();
         delegate void DelegadoParaEscribirInv(string username);
         delegate void DelegadoParaActAccept();
+        delegate void DelegadoParaDesactAccept();
         delegate void DelegadoParaActDeny();
+        delegate void DelegadoParaDesactDeny();
         delegate void DelegadoParaActInv();
-        int puerto = 9060;
+        delegate void DelegadoParaDesactInv();
+        delegate void DelegadoParaListBox(string msg);
+        delegate void DelegadoParaEscribirSuperU(string username);
+        delegate void DelegadoParaBorrarSuperU();
+        delegate void DelegadoParaBorrarChat();
+        delegate void DelegadoParaDesactRegistrar();
+        delegate void DelegadoParaActRegistrar();
+        delegate void DelegadoParaActDown();
+        delegate void DelegadoParaDesactDown();
+        delegate void DelegadoParaBorrarTBChat();
+        delegate void DelegadoParaActEnv();
+        delegate void DelegadoParaDesactEnv();
+        delegate void DelegadoParaBGGray();
+        int puerto = 9070;
         string usuario;
         public Cliente()
         {
             InitializeComponent();
             dataGridView1.ColumnCount = 1;
-            dataGridView2.ColumnCount = 2;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
            
+        }
+        public void AddItem(string msg) 
+        {
+            listBoxChat.Items.Add(msg);
         }
         public void BorraTextBoxRegistrar()
         {
@@ -63,15 +80,7 @@ namespace WindowsFormsApplication1
             row.Cells[0].Value = trozo;
             
         }
-        public void AddRowChat(string user, string mensaje)
-        {
-            int rowID = dataGridView2.Rows.Add();
-            DataGridViewRow row = dataGridView2.Rows[rowID];
-            row.Cells[0].Value = user;
-            row.Cells[1].Value = mensaje;
-
-        }
-        public void LoginDeact()
+        public void LoginDesact()
         {
             buttonLogIn.Enabled = false;
         }
@@ -83,13 +92,13 @@ namespace WindowsFormsApplication1
         {
             buttonDesconectar.Enabled = true;  
         }
+        public void DesconectDesact()
+        {
+            buttonDesconectar.Enabled = false;
+        }
         public void ClearList()
         {
             dataGridView1.Rows.Clear();
-        }
-        public void ClearChat()
-        {
-            dataGridView2.Rows.Clear();
         }
         public void EscribirInv(string username)
         {
@@ -99,13 +108,69 @@ namespace WindowsFormsApplication1
         {
             buttonAccept.Enabled = true ;
         }
+        public void DesactAccept()
+        {
+            buttonAccept.Enabled = false;
+        }
         public void ActDeny()
         {
             buttonDeny.Enabled = true;
         }
+        public void DesactDeny()
+        {
+            buttonDeny.Enabled = false;
+        }
         public void ActInv()
         {
             buttonInv.Enabled = true;
+        }
+        public void DesactInv()
+        {
+            buttonInv.Enabled = false;
+        }
+        public void EscribirSuperU(string username)
+        {
+            labelSuperU.Text = username + " conectado";
+        }
+        public void BorrarSuperU()
+        {
+            labelSuperU.Text ="";
+        }
+        public void BorrarChat()
+        {
+            listBoxChat.Items.Clear();
+        }
+        public void DesactRegistrar()
+        {
+            buttonSingUp.Enabled = false;
+        }
+        public void ActRegistrar()
+        {
+            buttonSingUp.Enabled = true;
+        }
+        public void ActDown()
+        {
+            buttonDown.Enabled = true;
+        }
+        public void DesactDown()
+        {
+            buttonDown.Enabled = false;
+        }
+        public void BorrarTBChat() 
+        {
+            textBoxChat.Text = "";
+        }
+        public void ActEnv()
+        {
+            buttonChat.Enabled = true;
+        }
+        public void DesactEnv()
+        {
+            buttonChat.Enabled = false;
+        }
+        public void BGGrey()
+        {
+            this.BackColor = Color.Gray; 
         }
         private void AtenderServidor()
         {
@@ -122,25 +187,69 @@ namespace WindowsFormsApplication1
                 DelegadoParaBorrar delegadoBorrarIniciar = new DelegadoParaBorrar(BorraTextBoxIniciar);
                 DelegadoParaEscribirList delegadoFilaList = new DelegadoParaEscribirList(AddRowList);
                 DelegadoParaLimpiarList delegadoClearList = new DelegadoParaLimpiarList(ClearList);
-                DelegadoParaDesactLogIn delegadoDeactLogIn = new DelegadoParaDesactLogIn(LoginDeact);
+                DelegadoParaDesactLogIn delegadoDesactLogIn = new DelegadoParaDesactLogIn(LoginDesact);
+                DelegadoParaActLogIn delegadoActLogIn = new DelegadoParaActLogIn(LoginAct);
                 DelegadoParaActDesconectar delegadoActDes = new DelegadoParaActDesconectar(DesconectAct);
+                DelegadoParaDesactDesconectar delegadoDesactDes = new DelegadoParaDesactDesconectar(DesconectDesact);
                 DelegadoParaEscribirInv delegadoEscInv = new DelegadoParaEscribirInv(EscribirInv);
-                DelegadoParaActAccept delegadoAccept = new DelegadoParaActAccept(ActAccept);
-                DelegadoParaActDeny delegadoDeny = new DelegadoParaActDeny(ActDeny);
+                DelegadoParaActAccept delegadoActAccept = new DelegadoParaActAccept(ActAccept);
+                DelegadoParaActDeny delegadoActDeny = new DelegadoParaActDeny(ActDeny);
                 DelegadoParaActInv delegadoActInv = new DelegadoParaActInv(ActInv);
-                DelegadoParaLimpiarChat delegadoClearChat = new DelegadoParaLimpiarChat(ClearChat);
-                DelegadoParaEscribirChat delegadoFilaChat = new DelegadoParaEscribirChat(AddRowChat);
+                DelegadoParaDesactInv delegadoDesactInv = new DelegadoParaDesactInv(DesactInv);
+                DelegadoParaListBox delegadoListBox = new DelegadoParaListBox(AddItem);
+                DelegadoParaEscribirSuperU delegadoEscribirSuperU = new DelegadoParaEscribirSuperU(EscribirSuperU);
+                DelegadoParaBorrarSuperU delegadoBorrarSuperU = new DelegadoParaBorrarSuperU(BorrarSuperU);
+                DelegadoParaDesactAccept delegadoDesactAccept = new DelegadoParaDesactAccept(DesactAccept);
+                DelegadoParaDesactDeny delegadoDesactDeny = new DelegadoParaDesactDeny(DesactDeny);
+                DelegadoParaBorrarChat delegadoBorrarChat = new DelegadoParaBorrarChat(BorrarChat);
+                DelegadoParaDesactRegistrar delegadoDesactRegistrar = new DelegadoParaDesactRegistrar(DesactRegistrar);
+                DelegadoParaActRegistrar delegadoActRegistrar = new DelegadoParaActRegistrar(ActRegistrar);
+                DelegadoParaActDown delegadoActDown = new DelegadoParaActDown(ActDown);
+                DelegadoParaDesactDown delegadoDesactDown = new DelegadoParaDesactDown(DesactDown);
+                DelegadoParaActEnv delegadoActEnv = new DelegadoParaActEnv(ActEnv);
+                DelegadoParaDesactEnv delegadoDesactEnv = new DelegadoParaDesactEnv(DesactEnv);
+                DelegadoParaLimpiarList delegadoLimpiarList = new DelegadoParaLimpiarList(ClearList);
+                DelegadoParaBGGray delegadoBG = new DelegadoParaBGGray(BGGrey);
+
                 switch (codigo)
                 {
+                    case 0:
+                        if (trozos[1] == "Si")
+                        {
+                            Invoke(delegadoBG, new object[] { });
+                            Invoke(delegadoLimpiarList, new object[] { });                            
+                            Invoke(delegadoActRegistrar, new object[] { });
+                            Invoke(delegadoActLogIn, new object[] { });
+                            Invoke(delegadoDesactDes, new object[] { });
+                            Invoke(delegadoDesactInv, new object[] { });
+                            Invoke(delegadoDesactAccept, new object[] { });
+                            Invoke(delegadoDesactDeny, new object[] { });
+                            Invoke(delegadoBorrarSuperU, new object[] {});
+                            Invoke(delegadoBorrarChat, new object[] { });
+                            Invoke(delegadoActDown, new object[] { });
+                            Invoke(delegadoDesactEnv, new object[] { });
+                            Invoke(delegadoDesactDes, new object[] { });
+                            MessageBox.Show("El usuario " + usuario + " ha sido desconectado correctamente");
+                            fin = 1;
+                        }
+                        else if (trozos[1] == "No")
+                        {
+                            MessageBox.Show("Ha ocurrido un error al desconectar al usuario");
+                        }
+                        break;
                     case 1:
                         if (trozos[1] == "Si")
                         {
                             usuario = textBoxUsername.Text;
                             MessageBox.Show("Bienvenido " + textBoxUsername.Text + ", has iniciado sesión correctamente");
                             Invoke(delegadoBorrarIniciar, new object[] { });
-                            Invoke(delegadoDeactLogIn, new object[] { });
+                            Invoke(delegadoDesactLogIn, new object[] { });
                             Invoke(delegadoActDes, new object[] { });
                             Invoke(delegadoActInv, new object[] { });
+                            Invoke(delegadoEscribirSuperU, new object[] {usuario});
+                            Invoke(delegadoDesactDown, new object[] { });
+                            Invoke(delegadoActEnv, new object[] { });
+                            Invoke(delegadoDesactRegistrar, new object[] { });
                         }
                         else if (trozos[1] == "No")
                         {
@@ -153,6 +262,7 @@ namespace WindowsFormsApplication1
                         {
                             MessageBox.Show("Bienvenido/a " + textBoxUsername.Text + ", te has registrado correctamente");
                             Invoke(delegadoBorrarRegistrar, new object[] { });
+                            fin = 1;
                         }
                         else if (trozos[1] == "No")
                         {
@@ -162,6 +272,7 @@ namespace WindowsFormsApplication1
                         else 
                         {
                             MessageBox.Show("El username que has indicado no está disponible");
+                            fin = 1;
                         }
                         break;
                     case 3:
@@ -174,8 +285,8 @@ namespace WindowsFormsApplication1
                         if (trozos[1] == "Si")
                         {
                             Invoke(delegadoEscInv, new object[] { trozos[2] });
-                            Invoke(delegadoAccept, new object[] {});
-                            Invoke(delegadoDeny, new object[] { });
+                            Invoke(delegadoActAccept, new object[] {});
+                            Invoke(delegadoActDeny, new object[] { });
                         }
                         else if (trozos[1] == "No")
                         {
@@ -183,18 +294,8 @@ namespace WindowsFormsApplication1
                         }
 
                         break;
-                    case 5:
-                        if (trozos[1] == "No")
-                        {
-                            MessageBox.Show("Hubo en error al envíar el mensaje");
-                        }
-                        else 
-                        {
-                            Invoke(delegadoClearChat, new object[] { });
-                            int j;
-                            for (j = 1; j < trozos.Length - 1; j=j+2)
-                                Invoke(delegadoFilaChat, new object[] { trozos[j] , trozos[j+1] });
-                        }
+                    case 5:                   
+                            Invoke(delegadoListBox, new object[] { trozos[1] + ": " + trozos[2] });                      
                         break;
                     case 6:
                         if (trozos[1] == "Si")
@@ -251,8 +352,8 @@ namespace WindowsFormsApplication1
             else
             {
                 string mensaje = "1/"+ textBoxUsername.Text + "/"+ textBoxPassword.Text;
-                byte[] SQLserver = System.Text.Encoding.ASCII.GetBytes(mensaje);                              
-                server.Send(SQLserver);
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);                              
+                server.Send(msg);
                 //byte[] msg2 = new byte[200];
                 //server.Receive(msg2);
                 //string answer = Encoding.ASCII.GetString(msg2).Split('\0')[0];
@@ -316,11 +417,7 @@ namespace WindowsFormsApplication1
             mensaje = "0/"+usuario;
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
-            this.BackColor = Color.Gray;
-            DelegadoParaActLogIn delegadoActLogIn = new DelegadoParaActLogIn(LoginAct);
-            Invoke(delegadoActLogIn, new object[] { });
-            DelegadoParaLimpiarList delegadoDGV = new DelegadoParaLimpiarList(ClearList);
-            Invoke(delegadoDGV, new object[] { });
+            
         }
 
         private void buttonInv_Click(object sender, EventArgs e)
@@ -355,6 +452,8 @@ namespace WindowsFormsApplication1
                 mensaje = "5/" + usuario + "/" + textBoxChat.Text;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
+                DelegadoParaBorrarTBChat delegadoBorrarTBChat = new DelegadoParaBorrarTBChat(BorrarTBChat);
+                Invoke(delegadoBorrarTBChat, new object[] { });
             }
         }
 
