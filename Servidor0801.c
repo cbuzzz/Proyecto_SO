@@ -434,11 +434,15 @@ void* AtenderCliente(void* socket)
 					
 				}
 				printf("%s\n", username);
-				if (res == 0)
+				if (res == 0){
+					strcpy(respuesta,"1/Si");
 					printf("Anadido a la lista de conectados\n");
-				if (res != 0)
+				}
+					
+				if (res != 0){
 					printf("Lista llena. No se pudo anadir el usuario a la lista de conectados.\n");
-				strcpy(respuesta,"1/Si");
+					strcpy(respuesta,"1/No");
+				}
 				
 				write(sock_conn, respuesta, strlen(respuesta));
 				

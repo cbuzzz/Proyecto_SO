@@ -99,3 +99,4 @@ C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyect
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources

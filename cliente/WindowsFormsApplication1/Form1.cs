@@ -44,6 +44,7 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaActEnv();
         delegate void DelegadoParaDesactEnv();
         delegate void DelegadoParaBGGray();
+        delegate void DelegadoParaBorrarInv();
         int puerto = 9070;
         string usuario;
         public Cliente()
@@ -102,7 +103,12 @@ namespace WindowsFormsApplication1
         }
         public void EscribirInv(string username)
         {
+            labelInv.Visible = true;
             labelInv.Text = username + " te ha invitado a una partida";
+        }
+        public void BorrarInv()
+        {
+            labelInv.Text = "";
         }
         public void ActAccept()
         {
@@ -130,6 +136,7 @@ namespace WindowsFormsApplication1
         }
         public void EscribirSuperU(string username)
         {
+            labelSuperU.Visible = true;
             labelSuperU.Text = username + " conectado";
         }
         public void BorrarSuperU()
@@ -192,6 +199,7 @@ namespace WindowsFormsApplication1
                 DelegadoParaActDesconectar delegadoActDes = new DelegadoParaActDesconectar(DesconectAct);
                 DelegadoParaDesactDesconectar delegadoDesactDes = new DelegadoParaDesactDesconectar(DesconectDesact);
                 DelegadoParaEscribirInv delegadoEscInv = new DelegadoParaEscribirInv(EscribirInv);
+                DelegadoParaBorrarInv delegadoBorrarInv = new DelegadoParaBorrarInv(BorrarInv);
                 DelegadoParaActAccept delegadoActAccept = new DelegadoParaActAccept(ActAccept);
                 DelegadoParaActDeny delegadoActDeny = new DelegadoParaActDeny(ActDeny);
                 DelegadoParaActInv delegadoActInv = new DelegadoParaActInv(ActInv);
@@ -229,6 +237,7 @@ namespace WindowsFormsApplication1
                             Invoke(delegadoActDown, new object[] { });
                             Invoke(delegadoDesactEnv, new object[] { });
                             Invoke(delegadoDesactDes, new object[] { });
+                            Invoke(delegadoBorrarInv, new object[] { });
                             MessageBox.Show("El usuario " + usuario + " ha sido desconectado correctamente");
                             fin = 1;
                         }
@@ -434,12 +443,14 @@ namespace WindowsFormsApplication1
 
         private void buttonAccept_Click(object sender, EventArgs e)
         {
-
+            Form2 frm = new Form2();
+            frm.Show();
         }
 
         private void buttonDeny_Click(object sender, EventArgs e)
         {
-
+            DelegadoParaBorrarInv delegadoBorrarInv = new DelegadoParaBorrarInv(BorrarInv);
+            Invoke(delegadoBorrarInv, new object[] { });
         }
 
         private void buttonChat_Click(object sender, EventArgs e)
