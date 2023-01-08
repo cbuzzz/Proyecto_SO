@@ -47,6 +47,7 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaBorrarInv();
         int puerto = 9070;
         string usuario;
+        string invitado;
         public Cliente()
         {
             InitializeComponent();
@@ -296,6 +297,7 @@ namespace WindowsFormsApplication1
                             Invoke(delegadoEscInv, new object[] { trozos[2] });
                             Invoke(delegadoActAccept, new object[] {});
                             Invoke(delegadoActDeny, new object[] { });
+                            invitado = trozos[2];
                         }
                         else if (trozos[1] == "No")
                         {
@@ -323,6 +325,20 @@ namespace WindowsFormsApplication1
                             atender.Abort();
                         }
                         break;
+                    case 7:
+                        if (trozos[1] == "Si")
+                        {
+                            Form2 frm = new Form2();
+                            frm.Show();
+
+                        }
+                        else if (trozos[1] == "Rechazado") MessageBox.Show("El usuario " + invitado + " ha rechazado tu invitación");
+
+                        else Invoke(delegadoBorrarInv, new object[] { });
+
+                        break;
+
+
 
 
 
@@ -434,6 +450,7 @@ namespace WindowsFormsApplication1
             if (textBoxInv.Text == "")
                 MessageBox.Show("Por favor introduzca el username del usuario al que desea invitar");
             else {
+                
                 string mensaje;
                 mensaje = "4/" + textBoxInv.Text + "/" + usuario;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
@@ -443,14 +460,20 @@ namespace WindowsFormsApplication1
 
         private void buttonAccept_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2();
-            frm.Show();
+            string mensaje;
+            mensaje = "7/Si/" + invitado + "/" + usuario;
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            server.Send(msg);
+
+            
         }
 
         private void buttonDeny_Click(object sender, EventArgs e)
         {
-            DelegadoParaBorrarInv delegadoBorrarInv = new DelegadoParaBorrarInv(BorrarInv);
-            Invoke(delegadoBorrarInv, new object[] { });
+            string mensaje;
+            mensaje = "7/No";
+            byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+            server.Send(msg);
         }
 
         private void buttonChat_Click(object sender, EventArgs e)
@@ -510,6 +533,12 @@ namespace WindowsFormsApplication1
                 atender.Start();
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form2 frm = new Form2();
+            frm.Show();
         }
     }
 }

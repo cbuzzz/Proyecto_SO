@@ -68,6 +68,7 @@
             this.labelTextChat = new System.Windows.Forms.Label();
             this.listBoxChat = new System.Windows.Forms.ListBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -511,6 +512,16 @@
             this.label8.TabIndex = 39;
             this.label8.Text = "THE LAST BATTLESHIP";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(789, 429);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 40;
+            this.button1.Text = "Jugar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Cliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -518,6 +529,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1067, 467);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.listBoxChat);
             this.Controls.Add(this.labelTextChat);
@@ -591,6 +603,7 @@
         private System.Windows.Forms.Label labelTextChat;
         private System.Windows.Forms.ListBox listBoxChat;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button button1;
     }
 }
 

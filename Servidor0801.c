@@ -563,6 +563,38 @@ void* AtenderCliente(void* socket)
 				
 			}
 		}
+		else if (codigo == 7)
+		{
+			p = strtok(NULL, "/");
+			if(p=="Si"){
+				char invitado[30];
+				p = strtok(NULL, "/");
+				strcpy(invitado, p);
+				p = strtok(NULL, "/");
+				strcpy(username, p);
+				sprintf(respuesta,"7/Si");
+				for(i=0;i<miLista.num;i++){
+					if(miLista.conectados[i].nombre == invitado)
+						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
+					else if(miLista.conectados[i].nombre == username)
+						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
+				}
+			}
+			else{
+				for(i=0;i<miLista.num;i++){
+					if(miLista.conectados[i].nombre == invitado){
+						sprintf(respuesta,"7/Rechazado");
+						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
+					}
+						
+					else if(miLista.conectados[i].nombre == username){
+						sprintf(respuesta,"7/F");
+						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
+					}
+				}
+			}
+			
+		}
 		
 	}
 	close(sock_conn);
