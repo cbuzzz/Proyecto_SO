@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9070;
+int puerto = 9060;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -408,7 +408,7 @@ void* AtenderCliente(void* socket)
 		//
 		// Peticion de LOGUEAR.
 		//
-		if (codigo == 1)
+		else if (codigo == 1)
 		{
 			p = strtok(NULL, "/");
 			strcpy(username, p);
@@ -563,32 +563,45 @@ void* AtenderCliente(void* socket)
 				
 			}
 		}
+		//
+		// Usuario acepta o rechaza invitación
+		//
 		else if (codigo == 7)
 		{
 			p = strtok(NULL, "/");
-			if(p=="Si"){
+			
+			if(strcmp(p,"Si") == 0){
 				char invitado[30];
 				p = strtok(NULL, "/");
 				strcpy(invitado, p);
 				p = strtok(NULL, "/");
 				strcpy(username, p);
 				sprintf(respuesta,"7/Si");
+				printf("Respuesta: %d",respuesta);
 				for(i=0;i<miLista.num;i++){
-					if(miLista.conectados[i].nombre == invitado)
+					if(strcmp(miLista.conectados[i].nombre,invitado) == 0)
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
-					else if(miLista.conectados[i].nombre == username)
+					else if(strcmp(miLista.conectados[i].nombre,username) == 0)
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 				}
 			}
 			else{
-				for(i=0;i<miLista.num;i++){
-					if(miLista.conectados[i].nombre == invitado){
+				char invitado[30];
+				p = strtok(NULL, "/");
+				strcpy(invitado, p);
+				p = strtok(NULL, "/");
+				strcpy(username, p);
+				for(i=0;i<miLista.num;i++)
+				{
+					if(strcmp(miLista.conectados[i].nombre,invitado)){
 						sprintf(respuesta,"7/Rechazado");
+						printf("Respuesta: 7/Rechazado");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
 						
-					else if(miLista.conectados[i].nombre == username){
+					else if(strcmp(miLista.conectados[i].nombre,username)){
 						sprintf(respuesta,"7/F");
+						printf("Respuesta: 7/F");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
 				}

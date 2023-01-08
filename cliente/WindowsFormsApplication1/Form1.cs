@@ -45,7 +45,7 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaDesactEnv();
         delegate void DelegadoParaBGGray();
         delegate void DelegadoParaBorrarInv();
-        int puerto = 9070;
+        int puerto = 9060;
         string usuario;
         string invitado;
         public Cliente()
