@@ -88,14 +88,15 @@ int DamePosicion(ListaConectados* lista, char nombre[20])
 		{
 			encontrado = 1;
 		}
-		if (!encontrado)
-		{
-			i = i + i;
-		}
+		if(!encontrado)
+			i++;
 	}
+	printf("%d\n",i);
+	printf("%d\n",encontrado);
 	if (encontrado)
 	{
 		return i;
+		
 	}
 	else
 	{
@@ -112,7 +113,7 @@ int Elimina(ListaConectados* lista, char nombre[20])
 	printf("Nombre recibido como parametro: %s \n", nombre);
 
 	int pos = DamePosicion(lista, nombre);
-	
+	printf("Posicion: %d",pos);
 	if (pos == -1)
 	{
 		return -1;
@@ -122,8 +123,9 @@ int Elimina(ListaConectados* lista, char nombre[20])
 		int i;
 		for (i = pos; i < lista->num - 1; i++)
 		{
-			strcpy(lista->conectados[i].nombre, lista->conectados[i + 1].nombre);
-			lista->conectados[i].socket = lista->conectados[i + 1].socket;
+			//strcpy(lista->conectados[i].nombre, lista->conectados[i + 1].nombre);
+			//lista->conectados[i].socket = lista->conectados[i + 1].socket;
+			lista->conectados[i] = lista->conectados[i + 1];
 		}
 		lista->num--;
 		printf("Resultado:%d\n", lista->num);
@@ -390,9 +392,9 @@ void* AtenderCliente(void* socket)
 				write(sock_conn, respuesta, strlen(respuesta));
 				printf("Usuario eliminado de la lista de conectados\n");
 				strcpy(conectados,"3/");
-				pthread_mutex_lock(&mutex);
+				
 				DameConectados(&miLista,conectados);
-				pthread_mutex_unlock(&mutex);
+				
 				printf("Usuarios conectados: %s\n",conectados);
 				for(i=0;i<miLista.num;i++){
 					write(miLista.conectados[i].socket, conectados, strlen(conectados));
@@ -420,31 +422,36 @@ void* AtenderCliente(void* socket)
 			
 			if (res == 0)
 			{
-				pthread_mutex_lock(&mutex);
-				int res =Pon(&miLista,username,sock_conn);
-				pthread_mutex_unlock(&mutex);
-				strcpy(conectados,"3/");
-				pthread_mutex_lock(&mutex);
-				DameConectados(&miLista,conectados);
-				pthread_mutex_unlock(&mutex);
-				printf("Usuarios conectados: %s\n",conectados);
-				for(i=0;i<miLista.num;i++){
-					
-					write(miLista.conectados[i].socket, conectados, strlen(conectados));
-					
-				}
-				printf("%s\n", username);
 				if (res == 0){
 					strcpy(respuesta,"1/Si");
 					printf("Anadido a la lista de conectados\n");
-				}
 					
-				if (res != 0){
+					pthread_mutex_lock(&mutex);
+					int res =Pon(&miLista,username,sock_conn);
+					pthread_mutex_unlock(&mutex);
+					strcpy(conectados,"3/");
+					
+					DameConectados(&miLista,conectados);
+					
+					printf("Usuarios conectados: %s\n",conectados);
+					for(i=0;i<miLista.num;i++){
+						
+						write(miLista.conectados[i].socket, conectados, strlen(conectados));
+						
+					}
+					printf("%s\n", username);
+					
+				}
+				
+				else {
 					printf("Lista llena. No se pudo anadir el usuario a la lista de conectados.\n");
 					strcpy(respuesta,"1/No");
 				}
 				
 				write(sock_conn, respuesta, strlen(respuesta));
+				
+				
+				
 				
 			}
 			else
@@ -593,13 +600,13 @@ void* AtenderCliente(void* socket)
 				strcpy(username, p);
 				for(i=0;i<miLista.num;i++)
 				{
-					if(strcmp(miLista.conectados[i].nombre,invitado)){
+					if(strcmp(miLista.conectados[i].nombre,invitado) == 0){
 						sprintf(respuesta,"7/Rechazado");
 						printf("Respuesta: 7/Rechazado");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
 						
-					else if(strcmp(miLista.conectados[i].nombre,username)){
+					else if(strcmp(miLista.conectados[i].nombre,username)==0){
 						sprintf(respuesta,"7/F");
 						printf("Respuesta: 7/F");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));

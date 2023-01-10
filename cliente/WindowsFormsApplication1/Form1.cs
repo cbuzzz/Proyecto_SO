@@ -45,6 +45,7 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaDesactEnv();
         delegate void DelegadoParaBGGray();
         delegate void DelegadoParaBorrarInv();
+        delegate void DelegadoParaJuego();
         int puerto = 9060;
         string usuario;
         string invitado;
@@ -190,6 +191,7 @@ namespace WindowsFormsApplication1
                 server.Receive(msg);
                 string mensaje = Encoding.ASCII.GetString(msg).Split('\0')[0];
                 string[] trozos = mensaje.Split('/');
+                
                 codigo = Convert.ToInt32(trozos[0]);
                 DelegadoParaBorrar delegadoBorrarRegistrar = new DelegadoParaBorrar(BorraTextBoxRegistrar);
                 DelegadoParaBorrar delegadoBorrarIniciar = new DelegadoParaBorrar(BorraTextBoxIniciar);
@@ -286,6 +288,7 @@ namespace WindowsFormsApplication1
                         }
                         break;
                     case 3:
+                        MessageBox.Show("hola");
                         Invoke(delegadoClearList, new object[] { });
                         int i;
                         for (i = 1; i < trozos.Length-1; i++)
@@ -328,9 +331,9 @@ namespace WindowsFormsApplication1
                     case 7:
                         if (trozos[1] == "Si")
                         {
+                            Invoke(delegadoBorrarInv, new object[] { });
                             Form2 frm = new Form2();
                             frm.Show();
-
                         }
                         else if (trozos[1] == "Rechazado") MessageBox.Show("El usuario " + invitado + " ha rechazado tu invitación");
 
