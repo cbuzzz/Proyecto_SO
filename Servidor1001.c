@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9060;
+int puerto = 9070;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -35,7 +35,7 @@ typedef struct
 
 char ID[3];
 ListaConectados miLista;
-
+char barcosJ1[100];
 
 //
 //Funcion que pone en la lista de conectados un usuario
@@ -91,8 +91,6 @@ int DamePosicion(ListaConectados* lista, char nombre[20])
 		if(!encontrado)
 			i++;
 	}
-	printf("%d\n",i);
-	printf("%d\n",encontrado);
 	if (encontrado)
 	{
 		return i;
@@ -111,9 +109,9 @@ int Elimina(ListaConectados* lista, char nombre[20])
 {
 	printf("%s:%d \n", lista->conectados[0].nombre, lista->num);
 	printf("Nombre recibido como parametro: %s \n", nombre);
-
+	
 	int pos = DamePosicion(lista, nombre);
-	printf("Posicion: %d",pos);
+	
 	if (pos == -1)
 	{
 		return -1;
@@ -123,12 +121,9 @@ int Elimina(ListaConectados* lista, char nombre[20])
 		int i;
 		for (i = pos; i < lista->num - 1; i++)
 		{
-			//strcpy(lista->conectados[i].nombre, lista->conectados[i + 1].nombre);
-			//lista->conectados[i].socket = lista->conectados[i + 1].socket;
 			lista->conectados[i] = lista->conectados[i + 1];
 		}
 		lista->num--;
-		printf("Resultado:%d\n", lista->num);
 		return 0;
 	}
 }
@@ -156,13 +151,12 @@ int Login(char respuesta[512], char username[20], char password[20], MYSQL* conn
 	MYSQL_RES* resultado;
 	MYSQL_ROW row;
 	
-	strcpy(consulta, "SELECT JUGADOR.USERNAME,JUGADOR.PASSWORD FROM JUGADOR WHERE JUGADOR.USERNAME='");
-	strcat(consulta, username);
-	strcat(consulta, "' AND JUGADOR.PASSWORD='");
-	strcat(consulta, password);
-	strcat(consulta, "';\n");
-	
-	printf("consulta = %s\n", consulta);
+/*	strcpy(consulta, "SELECT JUGADOR.USERNAME,JUGADOR.PASSWORD FROM JUGADOR WHERE JUGADOR.USERNAME='");*/
+/*	strcat(consulta, username);*/
+/*	strcat(consulta, "' AND JUGADOR.PASSWORD='");*/
+/*	strcat(consulta, password);*/
+/*	strcat(consulta, "';\n");*/
+	sprintf(consulta,"SELECT JUGADOR.USERNAME,JUGADOR.PASSWORD FROM JUGADOR WHERE JUGADOR.USERNAME='%s' AND JUGADOR.PASSWORD='%s';\n",username,password);
 	
 	int err = mysql_query(conn, consulta);
 	if (err != 0)
@@ -399,13 +393,14 @@ void* AtenderCliente(void* socket)
 				for(i=0;i<miLista.num;i++){
 					write(miLista.conectados[i].socket, conectados, strlen(conectados));
 				}
-				//terminar = 1;
+				terminar = 1;
 			}
 			else{
 				strcpy(respuesta,"0/No");
 				printf("Error al eliminar el usuario de la lista de conectados\n");
 				write(sock_conn, respuesta, strlen(respuesta));
 			}
+			
 		}
 		//
 		// Peticion de LOGUEAR.
@@ -534,8 +529,8 @@ void* AtenderCliente(void* socket)
 			char mensaje[200];
 			p = strtok(NULL, "/");
 			strcpy(mensaje, p);
-		    sprintf(respuesta,"5/%s/%s",username,mensaje);
-		    for(i=0;i<miLista.num;i++)
+			sprintf(respuesta,"5/%s/%s",username,mensaje);
+			for(i=0;i<miLista.num;i++)
 				write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 			
 		}
@@ -605,13 +600,36 @@ void* AtenderCliente(void* socket)
 						printf("Respuesta: 7/Rechazado");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
-						
+					
 					else if(strcmp(miLista.conectados[i].nombre,username)==0){
 						sprintf(respuesta,"7/F");
 						printf("Respuesta: 7/F");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
 				}
+			}
+			
+		}
+		//
+		// Jugador envía lista de barcos escogidos
+		//
+		else if (codigo == 8)
+		{
+			p = strtok(NULL, "/");
+			int nForm = atoi(p);
+			p = strtok(NULL, "/");
+			char j2[30];
+			strcpy(j2,p);
+			int i;
+			for(i=0;i=16;i++){
+				p = strtok(NULL, "/");
+				sprintf(barcosJ1,"%s%s/",barcosJ1,p)
+			}
+			sprintf(respuesta,"8/%d/%s",nForm,barcosJ1);
+			printf("Respuesta: %s",respuesta);
+			for(i=0;i=miLista->num;i++){
+				if(strcmp(miLista.conectados[j].nombre,j2) == 0)
+					write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 			}
 			
 		}
@@ -665,4 +683,5 @@ int main(int argc, char* argv[])
 		i++;
 	}
 }
+
 

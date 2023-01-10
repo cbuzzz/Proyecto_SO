@@ -44,7 +44,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelNombre = new System.Windows.Forms.Label();
-            this.buttonSingUp = new System.Windows.Forms.Button();
+            this.buttonSignUp = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonDesconectar = new System.Windows.Forms.Button();
             this.labelInv = new System.Windows.Forms.Label();
@@ -198,7 +198,7 @@
             this.groupBox3.BackColor = System.Drawing.Color.Transparent;
             this.groupBox3.Controls.Add(this.textBoxName);
             this.groupBox3.Controls.Add(this.labelNombre);
-            this.groupBox3.Controls.Add(this.buttonSingUp);
+            this.groupBox3.Controls.Add(this.buttonSignUp);
             this.groupBox3.Controls.Add(this.textBoxPasswordLog1);
             this.groupBox3.Controls.Add(this.textBoxUserLog);
             this.groupBox3.Controls.Add(this.label3);
@@ -231,18 +231,18 @@
             this.labelNombre.TabIndex = 21;
             this.labelNombre.Text = "Tú nombre:";
             // 
-            // buttonSingUp
+            // buttonSignUp
             // 
-            this.buttonSingUp.BackColor = System.Drawing.Color.MidnightBlue;
-            this.buttonSingUp.Font = new System.Drawing.Font("Bahnschrift Condensed", 10.20895F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSingUp.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.buttonSingUp.Location = new System.Drawing.Point(274, 60);
-            this.buttonSingUp.Name = "buttonSingUp";
-            this.buttonSingUp.Size = new System.Drawing.Size(106, 45);
-            this.buttonSingUp.TabIndex = 20;
-            this.buttonSingUp.Text = "Registrarse";
-            this.buttonSingUp.UseVisualStyleBackColor = false;
-            this.buttonSingUp.Click += new System.EventHandler(this.buttonSingUp_Click);
+            this.buttonSignUp.BackColor = System.Drawing.Color.MidnightBlue;
+            this.buttonSignUp.Font = new System.Drawing.Font("Bahnschrift Condensed", 10.20895F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSignUp.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.buttonSignUp.Location = new System.Drawing.Point(274, 60);
+            this.buttonSignUp.Name = "buttonSignUp";
+            this.buttonSignUp.Size = new System.Drawing.Size(106, 45);
+            this.buttonSignUp.TabIndex = 20;
+            this.buttonSignUp.Text = "Registrarse";
+            this.buttonSignUp.UseVisualStyleBackColor = false;
+            this.buttonSignUp.Click += new System.EventHandler(this.buttonSingUp_Click);
             // 
             // dataGridView1
             // 
@@ -548,6 +548,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Cliente";
             this.Text = "Cliente";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Cliente_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -577,7 +578,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonLogIn;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Button buttonSingUp;
+        private System.Windows.Forms.Button buttonSignUp;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label labelNombre;
         private System.Windows.Forms.DataGridView dataGridView1;

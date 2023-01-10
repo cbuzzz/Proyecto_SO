@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Rebar;
+using System.Net.Sockets;
 
 namespace WindowsFormsApplication1
 {
@@ -24,17 +25,29 @@ namespace WindowsFormsApplication1
         int round;
         int PuntosJugador;
         int PuntosEnemigo;
+        int nForm;
+        string j1;
+        string j2;
+        Socket server;
+        string mensajeE;
+        string[] barcosEnemigo = new string[17];
+        
 
-
-        public Form2()
+        public Form2(int nForm, Socket server, string j1, string j2)
         {
             InitializeComponent();
+            this.nForm = nForm;
+            this.server = server;
+            this.j1 = j1;
+            this.j2 = j2;
             ReiniciarJuego();
+            
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-
+            this.labelTJ1.Text = "Puntos "+j1+": ";
+            this.labelTJ2.Text = "Puntos " + j2 + ": ";
         }
 
         private void button80_Click(object sender, EventArgs e)
@@ -60,7 +73,7 @@ namespace WindowsFormsApplication1
                     PosicionJugadorButton[index].BackColor = Color.DarkBlue;
                     PosicionJugadorButton.RemoveAt(index);
                     PuntosEnemigo += 1;
-                    txtEnemigo.Text = PuntosEnemigo.ToString();
+                    labelPJ2.Text = PuntosEnemigo.ToString();
                     TimerEnemigo.Stop();
                 }
                 else
@@ -122,7 +135,7 @@ namespace WindowsFormsApplication1
                         PosicionEnemigoButton[index].BackgroundImage = imageList1.Images[0]; //llamo al icono de fuego
                         PosicionEnemigoButton[index].BackColor = Color.DarkBlue;
                         PuntosJugador += 1;//en este caso acierta, por lo tanto le suma un punto
-                        txtJugador.Text = PuntosJugador.ToString();
+                        labelPJ1.Text = PuntosJugador.ToString();
                         TimerEnemigo.Start();
 
                     }
@@ -145,17 +158,29 @@ namespace WindowsFormsApplication1
 
         private void J1posicionEvent(object sender, EventArgs e)
         {
-            if (barcos > 0)
+            if (barcos == 17) 
             {
                 var button = (Button)sender;
+                mensajeE = "8/"+nForm+"/"+j2+"/"+button.Text+"/";
                 button.Enabled = false;
                 button.Tag = "BarcoJugador";
                 button.BackColor = Color.Orange;
                 barcos -= 1;
             }
-
-            if (barcos == 0)
+            else if (barcos > 0)
             {
+                var button = (Button)sender;
+                mensajeE = mensajeE +  button.Text+"/";
+                button.Enabled = false;
+                button.Tag = "BarcoJugador";
+                button.BackColor = Color.Orange;
+                barcos -= 1;
+            }
+            else if (barcos == 0)
+            {
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensajeE);
+                server.Send(msg);
+
                 btnAtacar.Enabled = true;
                 btnAtacar.BackColor = Color.Red;
                 btnAtacar.ForeColor = Color.White;
@@ -246,8 +271,8 @@ namespace WindowsFormsApplication1
             round = 50;
             barcos = 17;
 
-            txtJugador.Text = PuntosJugador.ToString();
-            txtEnemigo.Text = PuntosEnemigo.ToString();
+            labelPJ1.Text = PuntosJugador.ToString();
+            labelPJ2.Text = PuntosEnemigo.ToString();
             EnemigoUbi.Text = "--";
 
             btnAtacar.Enabled = false;
@@ -276,8 +301,30 @@ namespace WindowsFormsApplication1
 
 
         }
-        
+        private void PickearUbiEnemigoJ2()
+        {
 
-        
+            for (int i = 0; i < PosicionEnemigoButton.Count; i++)
+            {
+
+                
+                if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && (string)PosicionEnemigoButton[i].Text == barcosEnemigo[i] )
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+
+                }
+                
+            }
+
+
+        }
+        public void TomarRespuesta8(string[] barcos)
+        {
+            this.barcosEnemigo = barcos;
+        }
+        private void labelTJ1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -61,11 +61,11 @@ COMPAÑEROS*/
 
 
 
-INSERT INTO JUGADOR VALUES (1, 'Monica', 'mesi123', 'monicagamer', 1);
+INSERT INTO JUGADOR VALUES (1, 'Monica', 'mesi123', 'monicagamer');
 
-INSERT INTO JUGADOR VALUES (2, 'Mark', 'marco123', 'mark777', 2);
+INSERT INTO JUGADOR VALUES (2, 'Mark', 'marco123', 'mark777');
 
-INSERT INTO JUGADOR VALUES (3, 'Rachel', 'cr7siu', 'rachelthebest', 1);
+INSERT INTO JUGADOR VALUES (3, 'Rachel', 'cr7siu', 'rachelthebest');
 
 
 

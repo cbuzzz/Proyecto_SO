@@ -46,9 +46,13 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaBGGray();
         delegate void DelegadoParaBorrarInv();
         delegate void DelegadoParaJuego();
-        int puerto = 9060;
-        string usuario;
-        string invitado;
+        int desconectado;
+        int puerto = 9070;
+        string ip = "192.168.56.102";
+        int nForm;
+        string j1;
+        string j2;
+        List<Form2> forms = new List<Form2>();
         public Cliente()
         {
             InitializeComponent();
@@ -151,11 +155,11 @@ namespace WindowsFormsApplication1
         }
         public void DesactRegistrar()
         {
-            buttonSingUp.Enabled = false;
+            buttonSignUp.Enabled = false;
         }
         public void ActRegistrar()
         {
-            buttonSingUp.Enabled = true;
+            buttonSignUp.Enabled = true;
         }
         public void ActDown()
         {
@@ -241,7 +245,8 @@ namespace WindowsFormsApplication1
                             Invoke(delegadoDesactEnv, new object[] { });
                             Invoke(delegadoDesactDes, new object[] { });
                             Invoke(delegadoBorrarInv, new object[] { });
-                            MessageBox.Show("El usuario " + usuario + " ha sido desconectado correctamente");
+                            MessageBox.Show("El usuario " + j1 + " ha sido desconectado correctamente");
+                            desconectado = 1;
                             fin = 1;
                         }
                         else if (trozos[1] == "No")
@@ -252,13 +257,14 @@ namespace WindowsFormsApplication1
                     case 1:
                         if (trozos[1] == "Si")
                         {
-                            usuario = textBoxUsername.Text;
+                            j1 = textBoxUsername.Text;
+                            desconectado = 0;
                             MessageBox.Show("Bienvenido " + textBoxUsername.Text + ", has iniciado sesión correctamente");
                             Invoke(delegadoBorrarIniciar, new object[] { });
                             Invoke(delegadoDesactLogIn, new object[] { });
                             Invoke(delegadoActDes, new object[] { });
                             Invoke(delegadoActInv, new object[] { });
-                            Invoke(delegadoEscribirSuperU, new object[] {usuario});
+                            Invoke(delegadoEscribirSuperU, new object[] {j1});
                             Invoke(delegadoDesactDown, new object[] { });
                             Invoke(delegadoActEnv, new object[] { });
                             Invoke(delegadoDesactRegistrar, new object[] { });
@@ -288,7 +294,6 @@ namespace WindowsFormsApplication1
                         }
                         break;
                     case 3:
-                        MessageBox.Show("hola");
                         Invoke(delegadoClearList, new object[] { });
                         int i;
                         for (i = 1; i < trozos.Length-1; i++)
@@ -300,7 +305,7 @@ namespace WindowsFormsApplication1
                             Invoke(delegadoEscInv, new object[] { trozos[2] });
                             Invoke(delegadoActAccept, new object[] {});
                             Invoke(delegadoActDeny, new object[] { });
-                            invitado = trozos[2];
+                            j2 = trozos[2];
                         }
                         else if (trozos[1] == "No")
                         {
@@ -332,13 +337,23 @@ namespace WindowsFormsApplication1
                         if (trozos[1] == "Si")
                         {
                             Invoke(delegadoBorrarInv, new object[] { });
-                            Form2 frm = new Form2();
-                            frm.Show();
+                            ThreadStart fgame = delegate { CrearFormulario(); };
+                            Thread atendergame = new Thread(fgame);
+                            atendergame.Start();
                         }
-                        else if (trozos[1] == "Rechazado") MessageBox.Show("El usuario " + invitado + " ha rechazado tu invitación");
+                        else if (trozos[1] == "Rechazado") MessageBox.Show("El usuario " + j2 + " ha rechazado tu invitación");
 
                         else Invoke(delegadoBorrarInv, new object[] { });
 
+                        break;
+                    case 8:
+                        nForm = Convert.ToInt32(trozos[1]);
+                        string[] coordenadas = new string[17];
+                        for (i = 2; i < trozos.Length; i++)
+                        {
+                            coordenadas[i] = trozos[i];
+                        }
+                        forms[nForm].TomaRespuesta8(coordenadas);
                         break;
 
 
@@ -348,13 +363,16 @@ namespace WindowsFormsApplication1
 
                 }
             }
+            
+            
+            atender.Abort();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
             //al que deseamos conectarnos
-            IPAddress direc = IPAddress.Parse("192.168.56.102");
+            IPAddress direc = IPAddress.Parse(ip);
             IPEndPoint ipep = new IPEndPoint(direc, puerto);
 
 
@@ -408,7 +426,7 @@ namespace WindowsFormsApplication1
             {
                 //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                 //al que deseamos conectarnos
-                IPAddress direc = IPAddress.Parse("192.168.56.102");
+                IPAddress direc = IPAddress.Parse(ip);
                 IPEndPoint ipep = new IPEndPoint(direc, puerto);
 
 
@@ -442,7 +460,7 @@ namespace WindowsFormsApplication1
         private void buttonDesconectar_Click(object sender, EventArgs e)
         {
             string mensaje;
-            mensaje = "0/"+usuario;
+            mensaje = "0/"+j1;
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
             
@@ -455,7 +473,7 @@ namespace WindowsFormsApplication1
             else {
                 
                 string mensaje;
-                mensaje = "4/" + textBoxInv.Text + "/" + usuario;
+                mensaje = "4/" + textBoxInv.Text + "/" + j1;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
             }
@@ -464,7 +482,7 @@ namespace WindowsFormsApplication1
         private void buttonAccept_Click(object sender, EventArgs e)
         {
             string mensaje;
-            mensaje = "7/Si/" + invitado + "/" + usuario;
+            mensaje = "7/Si/" + j2 + "/" + j1;
             byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
             server.Send(msg);
 
@@ -486,7 +504,7 @@ namespace WindowsFormsApplication1
             else
             {
                 string mensaje;
-                mensaje = "5/" + usuario + "/" + textBoxChat.Text;
+                mensaje = "5/" + j1 + "/" + textBoxChat.Text;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
                 DelegadoParaBorrarTBChat delegadoBorrarTBChat = new DelegadoParaBorrarTBChat(BorrarTBChat);
@@ -509,7 +527,7 @@ namespace WindowsFormsApplication1
             {
                 //Creamos un IPEndPoint con el ip del servidor y puerto del servidor 
                 //al que deseamos conectarnos
-                IPAddress direc = IPAddress.Parse("192.168.56.102");
+                IPAddress direc = IPAddress.Parse(ip);
                 IPEndPoint ipep = new IPEndPoint(direc, puerto);
 
 
@@ -537,11 +555,30 @@ namespace WindowsFormsApplication1
             }
             
         }
+        private void CrearFormulario() 
+        {
+            int cont = forms.Count;
+            Form2 frm = new Form2(cont,server,j1,j2);
+            forms.Add(frm);
+            frm.ShowDialog();
+            
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form2 frm = new Form2();
-            frm.Show();
+            CrearFormulario();
+        }
+
+        private void Cliente_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (desconectado == 0) {
+                string mensaje;
+                mensaje = "0/"+j1;
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                server.Send(msg);
+                atender.Abort();
+            }
+            
         }
     }
 }

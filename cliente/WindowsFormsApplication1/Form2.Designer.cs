@@ -235,13 +235,13 @@
             this.L8 = new System.Windows.Forms.Button();
             this.k8 = new System.Windows.Forms.Button();
             this.txtHelp = new System.Windows.Forms.Label();
-            this.txtJugador = new System.Windows.Forms.Label();
-            this.txtEnemigo = new System.Windows.Forms.Label();
+            this.labelPJ1 = new System.Windows.Forms.Label();
+            this.labelPJ2 = new System.Windows.Forms.Label();
             this.txtRondas = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.labelTJ2 = new System.Windows.Forms.Label();
+            this.labelTJ1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.EnemigoUbi = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
@@ -2384,23 +2384,23 @@
             this.txtHelp.Size = new System.Drawing.Size(0, 16);
             this.txtHelp.TabIndex = 222;
             // 
-            // txtJugador
+            // labelPJ1
             // 
-            this.txtJugador.AutoSize = true;
-            this.txtJugador.Location = new System.Drawing.Point(279, 512);
-            this.txtJugador.Name = "txtJugador";
-            this.txtJugador.Size = new System.Drawing.Size(21, 16);
-            this.txtJugador.TabIndex = 223;
-            this.txtJugador.Text = "00";
+            this.labelPJ1.AutoSize = true;
+            this.labelPJ1.Location = new System.Drawing.Point(279, 512);
+            this.labelPJ1.Name = "labelPJ1";
+            this.labelPJ1.Size = new System.Drawing.Size(21, 16);
+            this.labelPJ1.TabIndex = 223;
+            this.labelPJ1.Text = "00";
             // 
-            // txtEnemigo
+            // labelPJ2
             // 
-            this.txtEnemigo.AutoSize = true;
-            this.txtEnemigo.Location = new System.Drawing.Point(730, 512);
-            this.txtEnemigo.Name = "txtEnemigo";
-            this.txtEnemigo.Size = new System.Drawing.Size(21, 16);
-            this.txtEnemigo.TabIndex = 224;
-            this.txtEnemigo.Text = "00";
+            this.labelPJ2.AutoSize = true;
+            this.labelPJ2.Location = new System.Drawing.Point(730, 512);
+            this.labelPJ2.Name = "labelPJ2";
+            this.labelPJ2.Size = new System.Drawing.Size(21, 16);
+            this.labelPJ2.TabIndex = 224;
+            this.labelPJ2.Text = "00";
             // 
             // txtRondas
             // 
@@ -2427,23 +2427,24 @@
             this.imageList1.Images.SetKeyName(0, "IconoFuego");
             this.imageList1.Images.SetKeyName(1, "IconoFallo");
             // 
-            // label2
+            // labelTJ2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(678, 512);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 16);
-            this.label2.TabIndex = 227;
-            this.label2.Text = "Pts J2:";
+            this.labelTJ2.AutoSize = true;
+            this.labelTJ2.Location = new System.Drawing.Point(678, 512);
+            this.labelTJ2.Name = "labelTJ2";
+            this.labelTJ2.Size = new System.Drawing.Size(46, 16);
+            this.labelTJ2.TabIndex = 227;
+            this.labelTJ2.Text = "Pts J2:";
             // 
-            // label3
+            // labelTJ1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(227, 512);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 16);
-            this.label3.TabIndex = 228;
-            this.label3.Text = "Pts J1:";
+            this.labelTJ1.AutoSize = true;
+            this.labelTJ1.Location = new System.Drawing.Point(153, 513);
+            this.labelTJ1.Name = "labelTJ1";
+            this.labelTJ1.Size = new System.Drawing.Size(46, 16);
+            this.labelTJ1.TabIndex = 228;
+            this.labelTJ1.Text = "Pts J1:";
+            this.labelTJ1.Click += new System.EventHandler(this.labelTJ1_Click);
             // 
             // label4
             // 
@@ -2472,12 +2473,12 @@
             this.ClientSize = new System.Drawing.Size(1135, 558);
             this.Controls.Add(this.EnemigoUbi);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.labelTJ1);
+            this.Controls.Add(this.labelTJ2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtRondas);
-            this.Controls.Add(this.txtEnemigo);
-            this.Controls.Add(this.txtJugador);
+            this.Controls.Add(this.labelPJ2);
+            this.Controls.Add(this.labelPJ1);
             this.Controls.Add(this.txtHelp);
             this.Controls.Add(this.T3);
             this.Controls.Add(this.S3);
@@ -2899,14 +2900,14 @@
         private System.Windows.Forms.Button L8;
         private System.Windows.Forms.Button k8;
         private System.Windows.Forms.Label txtHelp;
-        private System.Windows.Forms.Label txtEnemigo;
-        private System.Windows.Forms.Label txtJugador;
+        private System.Windows.Forms.Label labelPJ2;
+        private System.Windows.Forms.Label labelPJ1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label txtRondas;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Label EnemigoUbi;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelTJ1;
+        private System.Windows.Forms.Label labelTJ2;
     }
 }
