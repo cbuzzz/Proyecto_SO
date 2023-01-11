@@ -124,3 +124,15 @@ C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\
 C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
 C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.AssemblyReference.cache
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.SuggestedBindingRedirects.cache
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Cliente.resources
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.GenerateResource.cache
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb

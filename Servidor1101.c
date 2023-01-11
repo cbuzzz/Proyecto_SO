@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9060;
+int puerto = 9050;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -340,6 +340,8 @@ void* AtenderCliente(void* socket)
 	char notificacion[200];
 	char connected[200];
 	char conectados[200];
+	char invitador[30];
+	char invitado[30];
 	
 	//Conexion con la base de datos
 	conn = mysql_init(NULL);
@@ -573,37 +575,37 @@ void* AtenderCliente(void* socket)
 			p = strtok(NULL, "/");
 			
 			if(strcmp(p,"Si") == 0){
-				char invitado[30];
+				
 				p = strtok(NULL, "/");
 				strcpy(invitado, p);
 				p = strtok(NULL, "/");
-				strcpy(username, p);
-				sprintf(respuesta,"7/Si");
-				printf("Respuesta: %d",respuesta);
+				strcpy(invitador, p);
+				sprintf(respuesta,"7/Si/",invitado);
+				printf("Respuesta: %s\n",respuesta);
 				for(i=0;i<miLista.num;i++){
 					if(strcmp(miLista.conectados[i].nombre,invitado) == 0)
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
-					else if(strcmp(miLista.conectados[i].nombre,username) == 0)
+					else if(strcmp(miLista.conectados[i].nombre,invitador) == 0)
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 				}
 			}
 			else{
-				char invitado[30];
+			
 				p = strtok(NULL, "/");
 				strcpy(invitado, p);
 				p = strtok(NULL, "/");
-				strcpy(username, p);
+				strcpy(invitador, p);
 				for(i=0;i<miLista.num;i++)
 				{
 					if(strcmp(miLista.conectados[i].nombre,invitado) == 0){
 						sprintf(respuesta,"7/Rechazado");
-						printf("Respuesta: 7/Rechazado");
+						printf("Respuesta: 7/Rechazado\n");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
 					
-					else if(strcmp(miLista.conectados[i].nombre,username)==0){
+					else if(strcmp(miLista.conectados[i].nombre,invitador)==0){
 						sprintf(respuesta,"7/F");
-						printf("Respuesta: 7/F");
+						printf("Respuesta: 7/F\n");
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					}
 				}
@@ -615,18 +617,19 @@ void* AtenderCliente(void* socket)
 		//
 		else if (codigo == 8)
 		{
+			strcpy(barcosJ1,"");
 			p = strtok(NULL, "/");
 			int nForm = atoi(p);
 			p = strtok(NULL, "/");
 			char j2[30];
 			strcpy(j2,p);
-			int i;
+			int i=0;
 			for(i=0;i<17;i++){
 				p = strtok(NULL, "/");
 				sprintf(barcosJ1,"%s%s/",barcosJ1,p);
 			}
 			sprintf(respuesta,"8/%d/%s",nForm,barcosJ1);
-			printf("Respuesta: %s",respuesta);
+			printf("Respuesta: %s\n",respuesta);
 			for(i=0;i<miLista.num;i++){
 				if(strcmp(miLista.conectados[i].nombre,j2) == 0)
 					write(miLista.conectados[i].socket, respuesta, strlen(respuesta));

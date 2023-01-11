@@ -47,7 +47,7 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaBorrarInv();
         delegate void DelegadoParaJuego();
         int desconectado;
-        int puerto = 9030;
+        int puerto = 9050;
         string ip = "192.168.56.102";
         int nForm;
         string j1;
@@ -470,7 +470,7 @@ namespace WindowsFormsApplication1
             if (textBoxInv.Text == "")
                 MessageBox.Show("Por favor introduzca el username del usuario al que desea invitar");
             else {
-                
+                j2 = textBoxInv.Text;
                 string mensaje;
                 mensaje = "4/" + textBoxInv.Text + "/" + j1;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);

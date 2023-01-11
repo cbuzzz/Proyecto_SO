@@ -244,6 +244,7 @@
             this.labelTJ1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.EnemigoUbi = new System.Windows.Forms.Label();
+            this.buttonAceptar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -2464,6 +2465,17 @@
             this.EnemigoUbi.TabIndex = 230;
             this.EnemigoUbi.Text = "00";
             // 
+            // buttonAceptar
+            // 
+            this.buttonAceptar.Enabled = false;
+            this.buttonAceptar.Location = new System.Drawing.Point(524, 486);
+            this.buttonAceptar.Name = "buttonAceptar";
+            this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
+            this.buttonAceptar.TabIndex = 231;
+            this.buttonAceptar.Text = "Aceptar";
+            this.buttonAceptar.UseVisualStyleBackColor = true;
+            this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2471,6 +2483,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1135, 558);
+            this.Controls.Add(this.buttonAceptar);
             this.Controls.Add(this.EnemigoUbi);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelTJ1);
@@ -2909,5 +2922,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelTJ1;
         private System.Windows.Forms.Label labelTJ2;
+        private System.Windows.Forms.Button buttonAceptar;
     }
 }

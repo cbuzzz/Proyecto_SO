@@ -29,9 +29,11 @@ namespace WindowsFormsApplication1
         string j1;
         string j2;
         Socket server;
-        string mensajeE;
+        string[] mensajeE = new string[20];
         string[] barcosEnemigo = new string[17];
-        
+        int barcosEnemigoRecibido = 0;
+        int cont = 4;
+
 
         public Form2(int nForm, Socket server, string j1, string j2)
         {
@@ -116,7 +118,7 @@ namespace WindowsFormsApplication1
             if (EnemigoUbiTextbox.Text != "")
             {
 
-                var attackPosition = EnemigoUbiTextbox.Text;
+                //var attackPosition = EnemigoUbiTextbox.Text;
 
                 var attackPositionTranslate = Traducir(EnemigoUbiTextbox.Text);
 
@@ -128,9 +130,8 @@ namespace WindowsFormsApplication1
 
                 if (PosicionEnemigoButton[index].Enabled && round > 0)
                 {
-                    round -= 1;
+                    round--;
                     txtRondas.Text = "Round: " + round;
-
 
                     if ((string)PosicionEnemigoButton[index].Tag == "BarcoEnemigo")
                     {
@@ -162,35 +163,57 @@ namespace WindowsFormsApplication1
 
         private void J1posicionEvent(object sender, EventArgs e)
         {
-            if (barcos == 17) 
+            var button = (Button)sender;
+            if (barcos == 17)
             {
-                var button = (Button)sender;
-                mensajeE = "8/"+nForm+"/"+j2+"/"+button.Text+"/";
-                button.Enabled = false;
+                mensajeE[0] = "8";
+                mensajeE[1] = "" + nForm + "";
+                mensajeE[2] = "" + j2 + "";
+                mensajeE[3] = "" + button.Text + "";
                 button.Tag = "BarcoJugador";
                 button.BackColor = Color.Orange;
-                barcos -= 1;
+                barcos--;
             }
-            else if (barcos > 0)
+            else if (barcos > 1 && (button.Tag == null))
             {
-                var button = (Button)sender;
-                mensajeE = mensajeE +  button.Text+"/";
-                button.Enabled = false;
+                mensajeE[cont] = ""+button.Text+"";
+                cont++;
                 button.Tag = "BarcoJugador";
                 button.BackColor = Color.Orange;
-                barcos -= 1;
+                barcos--;
             }
-            else if (barcos == 0)
+            else if (barcos > 1 && ((string)button.Tag == "BarcoJugador"))
             {
-                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensajeE);
+                for (int i = 0; i < mensajeE.Length; i++) {
+                    if (mensajeE[i] == button.Text)
+                    {
+                        for(int j = i; j < mensajeE.Length-1; j++)
+                        {
+                            mensajeE[j] = mensajeE[j + 1];
+                        }
+                        mensajeE[mensajeE.Length-1] = "";
+                        button.Tag = null;
+                        button.BackColor = Color.White;
+                    }
+                }
+                cont--;
+                barcos++;
+            }
+            else if (barcos == 1)
+            {
+                mensajeE[cont] = "" + button.Text + "";
+                cont++;
+                button.Tag = "BarcoJugador";
+                button.BackColor = Color.Orange;
+                string mensaje = "";
+                barcos--;
+                for (int i = 0; i < mensajeE.Length; i++)
+                {
+                    mensaje = mensaje + mensajeE[i] + "/";
+                }
+                byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
-
-                btnAtacar.Enabled = true;
-                btnAtacar.BackColor = Color.Red;
-                btnAtacar.ForeColor = Color.White;
-                //una vez estén todos los barcos propios marcados, el botón de atacar se vuelve rojo (está a punto) ya para atacar
-                txtHelp.Text = "2) Ahora escribe donde quieres atacar";
-                PickearUbiEnemigoJ2();
+                buttonAceptar.Enabled = true;
             }
             
         }
@@ -241,53 +264,7 @@ namespace WindowsFormsApplication1
             
 
         }
-        public string Traducirinverso(string S)
-        {
-            char[] chars2 = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
-            char[] chars1 = { 'k', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
-            char[] respuesta = { 'A', 'B' };
-            char[] respuesta2 = { 'A', 'B', 'C' };
-            char letra = S[0];
-            char num = S[1];
-            if (S.Length == 3)
-            {
-                char num2 = S[2];
-                int encontrado = 0;
-                int i = 0;
-                while (encontrado == 0)
-                {
-                    if (letra == chars1[i])
-                    {
-                        respuesta2[0] = chars2[i];
-                        respuesta2[1] = num;
-                        respuesta2[2] = num2;
-                        encontrado = 1;
-                    }
-                    i++;
-                }
-                string res = new string(respuesta2);
-                return res;
-            }
-            else
-            {
-                int encontrado = 0;
-                int i = 0;
-                while (encontrado == 0)
-                {
-                    if (letra == chars2[i])
-                    {
-                        respuesta[0] = chars1[i];
-                        respuesta[1] = num;
-                        encontrado = 1;
-                    }
-                    i++;
-                }
-                string res = new string(respuesta);
-                return res;
-            }
-
-
-        }
+        
 
         private void ReiniciarJuego()
         {
@@ -299,7 +276,7 @@ namespace WindowsFormsApplication1
 
             EnemigoUbiTextbox.Text = null;
 
-            txtHelp.Text = "1) Clica en 9 casillas para poner tu flota.";
+            txtHelp.Text = "1) Clica en 17 casillas para poner tu flota.";
 
 
             for (int i = 0; i < PosicionEnemigoButton.Count; i++)
@@ -356,18 +333,92 @@ namespace WindowsFormsApplication1
         }
         private void PickearUbiEnemigoJ2()
         {
-            int j = 0;
-            for (int i = 0; i < PosicionEnemigoButton.Count-1; i++)
+            //int j = 0;
+            //for (int i = 0; i < PosicionEnemigoButton.Count; i++)
+            //{
+            //    if (PosicionEnemigoButton[i].Text == Traducir(barcosEnemigo[j]))
+            //    {
+            //        PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+            //        j++;
+            //    }
+
+
+            //}
+            for(int i = 0; i < PosicionEnemigoButton.Count - 1; i++)
             {
+                //for (j = 0; j<17; j++)
+                //{
+                //    barcosEnemigo[j] =                  
 
-                
-                if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && Traducir(PosicionEnemigoButton[i].Text) == barcosEnemigo[j] )
+                //}
+                if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[0])
                 {
-
                     PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
-                    j++;
                 }
-                
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[1])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[2])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[3])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[4])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[5])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[6])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[7])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[8])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[9])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[10])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[11])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[12])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[13])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[14])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[15])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
+                else if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && PosicionEnemigoButton[i].Text == barcosEnemigo[16])
+                {
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                }
             }
 
 
@@ -375,10 +426,26 @@ namespace WindowsFormsApplication1
         public void TomarRespuesta8(string[] barcos)
         {
             this.barcosEnemigo = barcos;
+            this.barcosEnemigoRecibido = 1;
         }
         private void labelTJ1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonAceptar_Click(object sender, EventArgs e)
+        {
+            if (barcosEnemigoRecibido == 1)
+            {
+                PickearUbiEnemigoJ2();
+                btnAtacar.Enabled = true;
+                btnAtacar.BackColor = Color.Red;
+                btnAtacar.ForeColor = Color.White;
+                //una vez estén todos los barcos propios marcados, el botón de atacar se vuelve rojo (está a punto) ya para atacar
+                txtHelp.Text = "2) Ahora escribe donde quieres atacar";
+            }
+            else MessageBox.Show("Espera a que tu contrincante posicione sus barcos");
+            
         }
     }
 }

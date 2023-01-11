@@ -91,6 +91,7 @@
             this.textBoxPassword.Name = "textBoxPassword";
             this.textBoxPassword.Size = new System.Drawing.Size(100, 28);
             this.textBoxPassword.TabIndex = 8;
+            this.textBoxPassword.UseSystemPasswordChar = true;
             // 
             // textBoxUserLog
             // 
@@ -107,6 +108,7 @@
             this.textBoxPasswordLog1.Name = "textBoxPasswordLog1";
             this.textBoxPasswordLog1.Size = new System.Drawing.Size(100, 28);
             this.textBoxPasswordLog1.TabIndex = 10;
+            this.textBoxPasswordLog1.UseSystemPasswordChar = true;
             // 
             // labelUsername
             // 
@@ -153,6 +155,7 @@
             this.textBoxPasswordLog2.Name = "textBoxPasswordLog2";
             this.textBoxPasswordLog2.Size = new System.Drawing.Size(100, 28);
             this.textBoxPasswordLog2.TabIndex = 15;
+            this.textBoxPasswordLog2.UseSystemPasswordChar = true;
             // 
             // label3
             // 
@@ -408,6 +411,7 @@
             this.textBoxPassDown2.Name = "textBoxPassDown2";
             this.textBoxPassDown2.Size = new System.Drawing.Size(100, 28);
             this.textBoxPassDown2.TabIndex = 40;
+            this.textBoxPassDown2.UseSystemPasswordChar = true;
             // 
             // textBoxPassDown
             // 
@@ -416,6 +420,7 @@
             this.textBoxPassDown.Name = "textBoxPassDown";
             this.textBoxPassDown.Size = new System.Drawing.Size(100, 28);
             this.textBoxPassDown.TabIndex = 39;
+            this.textBoxPassDown.UseSystemPasswordChar = true;
             // 
             // textBoxUserDown
             // 
