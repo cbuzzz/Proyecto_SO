@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9070;
+int puerto = 9060;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -621,14 +621,14 @@ void* AtenderCliente(void* socket)
 			char j2[30];
 			strcpy(j2,p);
 			int i;
-			for(i=0;i=16;i++){
+			for(i=0;i<17;i++){
 				p = strtok(NULL, "/");
-				sprintf(barcosJ1,"%s%s/",barcosJ1,p)
+				sprintf(barcosJ1,"%s%s/",barcosJ1,p);
 			}
 			sprintf(respuesta,"8/%d/%s",nForm,barcosJ1);
 			printf("Respuesta: %s",respuesta);
-			for(i=0;i=miLista->num;i++){
-				if(strcmp(miLista.conectados[j].nombre,j2) == 0)
+			for(i=0;i<miLista.num;i++){
+				if(strcmp(miLista.conectados[i].nombre,j2) == 0)
 					write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 			}
 			

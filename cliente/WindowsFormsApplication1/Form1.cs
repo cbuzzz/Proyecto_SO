@@ -47,11 +47,12 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaBorrarInv();
         delegate void DelegadoParaJuego();
         int desconectado;
-        int puerto = 9070;
+        int puerto = 9030;
         string ip = "192.168.56.102";
         int nForm;
         string j1;
         string j2;
+        int iniciado;
         List<Form2> forms = new List<Form2>();
         public Cliente()
         {
@@ -259,6 +260,7 @@ namespace WindowsFormsApplication1
                         {
                             j1 = textBoxUsername.Text;
                             desconectado = 0;
+                            iniciado = 1;
                             MessageBox.Show("Bienvenido " + textBoxUsername.Text + ", has iniciado sesión correctamente");
                             Invoke(delegadoBorrarIniciar, new object[] { });
                             Invoke(delegadoDesactLogIn, new object[] { });
@@ -349,17 +351,14 @@ namespace WindowsFormsApplication1
                     case 8:
                         nForm = Convert.ToInt32(trozos[1]);
                         string[] coordenadas = new string[17];
-                        for (i = 2; i < trozos.Length; i++)
+                        int j = 0;
+                        for (i = 2; i < 19; i++)
                         {
-                            coordenadas[i] = trozos[i];
+                            coordenadas[j] = trozos[i];
+                            j++;
                         }
-                        forms[nForm].TomaRespuesta8(coordenadas);
+                        forms[nForm].TomarRespuesta8(coordenadas);
                         break;
-
-
-
-
-
 
                 }
             }
@@ -571,12 +570,14 @@ namespace WindowsFormsApplication1
 
         private void Cliente_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (desconectado == 0) {
+            
+            if (desconectado == 0 && iniciado == 1) {
                 string mensaje;
                 mensaje = "0/"+j1;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
                 atender.Abort();
+                
             }
             
         }

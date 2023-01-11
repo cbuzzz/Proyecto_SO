@@ -100,3 +100,27 @@ C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyect
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Version-1-proyecto-3\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.AssemblyReference.cache
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.SuggestedBindingRedirects.cache
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Cliente.resources
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.GenerateResource.cache
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\Daniel\Documents\SO\Proyecto\Proyecto_SO-master\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe.config
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.exe
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\bin\Debug\WindowsFormsApplication1.pdb
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.AssemblyReference.cache
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.SuggestedBindingRedirects.cache
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Cliente.resources
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form2.resources
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Properties.Resources.resources
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.GenerateResource.cache
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
+C:\Users\david\Desktop\Project\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb

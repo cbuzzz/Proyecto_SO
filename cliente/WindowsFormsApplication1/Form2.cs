@@ -46,7 +46,7 @@ namespace WindowsFormsApplication1
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            this.labelTJ1.Text = "Puntos "+j1+": ";
+            this.labelTJ1.Text = "Puntos " + j1 + ": ";
             this.labelTJ2.Text = "Puntos " + j2 + ": ";
         }
 
@@ -121,6 +121,10 @@ namespace WindowsFormsApplication1
                 var attackPositionTranslate = Traducir(EnemigoUbiTextbox.Text);
 
                 int index = PosicionEnemigoButton.FindIndex(a => a.Name == attackPositionTranslate);
+                //int i = Convert.ToInt32(attackPositionTranslate);
+                //string mensaje = "8/" + i;
+                //byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
+                //server.Send(msg);
 
                 if (PosicionEnemigoButton[index].Enabled && round > 0)
                 {
@@ -186,7 +190,9 @@ namespace WindowsFormsApplication1
                 btnAtacar.ForeColor = Color.White;
                 //una vez estén todos los barcos propios marcados, el botón de atacar se vuelve rojo (está a punto) ya para atacar
                 txtHelp.Text = "2) Ahora escribe donde quieres atacar";
+                PickearUbiEnemigoJ2();
             }
+            
         }
 
         public string Traducir(string S)
@@ -235,6 +241,53 @@ namespace WindowsFormsApplication1
             
 
         }
+        public string Traducirinverso(string S)
+        {
+            char[] chars2 = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J' };
+            char[] chars1 = { 'k', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T' };
+            char[] respuesta = { 'A', 'B' };
+            char[] respuesta2 = { 'A', 'B', 'C' };
+            char letra = S[0];
+            char num = S[1];
+            if (S.Length == 3)
+            {
+                char num2 = S[2];
+                int encontrado = 0;
+                int i = 0;
+                while (encontrado == 0)
+                {
+                    if (letra == chars1[i])
+                    {
+                        respuesta2[0] = chars2[i];
+                        respuesta2[1] = num;
+                        respuesta2[2] = num2;
+                        encontrado = 1;
+                    }
+                    i++;
+                }
+                string res = new string(respuesta2);
+                return res;
+            }
+            else
+            {
+                int encontrado = 0;
+                int i = 0;
+                while (encontrado == 0)
+                {
+                    if (letra == chars2[i])
+                    {
+                        respuesta[0] = chars1[i];
+                        respuesta[1] = num;
+                        encontrado = 1;
+                    }
+                    i++;
+                }
+                string res = new string(respuesta);
+                return res;
+            }
+
+
+        }
 
         private void ReiniciarJuego()
         {
@@ -277,7 +330,7 @@ namespace WindowsFormsApplication1
 
             btnAtacar.Enabled = false;
 
-            PickearUbiEnemigo();
+ 
 
         }
 
@@ -303,15 +356,16 @@ namespace WindowsFormsApplication1
         }
         private void PickearUbiEnemigoJ2()
         {
-
-            for (int i = 0; i < PosicionEnemigoButton.Count; i++)
+            int j = 0;
+            for (int i = 0; i < PosicionEnemigoButton.Count-1; i++)
             {
 
                 
-                if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && (string)PosicionEnemigoButton[i].Text == barcosEnemigo[i] )
+                if (PosicionEnemigoButton[i].Enabled == true && (string)PosicionEnemigoButton[i].Tag == null && Traducir(PosicionEnemigoButton[i].Text) == barcosEnemigo[j] )
                 {
-                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
 
+                    PosicionEnemigoButton[i].Tag = "BarcoEnemigo";
+                    j++;
                 }
                 
             }
