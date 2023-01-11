@@ -132,8 +132,6 @@
             this.B4 = new System.Windows.Forms.Button();
             this.A4 = new System.Windows.Forms.Button();
             this.TimerEnemigo = new System.Windows.Forms.Timer(this.components);
-            this.btnAtacar = new System.Windows.Forms.Button();
-            this.EnemigoUbiTextbox = new System.Windows.Forms.TextBox();
             this.T3 = new System.Windows.Forms.Button();
             this.S3 = new System.Windows.Forms.Button();
             this.R3 = new System.Windows.Forms.Button();
@@ -244,7 +242,7 @@
             this.labelTJ1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.EnemigoUbi = new System.Windows.Forms.Label();
-            this.buttonAceptar = new System.Windows.Forms.Button();
+            this.buttonComenzar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1358,25 +1356,6 @@
             this.TimerEnemigo.Interval = 1000;
             this.TimerEnemigo.Tick += new System.EventHandler(this.TimerEnemigoEvent);
             // 
-            // btnAtacar
-            // 
-            this.btnAtacar.Location = new System.Drawing.Point(456, 507);
-            this.btnAtacar.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.btnAtacar.Name = "btnAtacar";
-            this.btnAtacar.Size = new System.Drawing.Size(91, 26);
-            this.btnAtacar.TabIndex = 120;
-            this.btnAtacar.Text = "Atacar";
-            this.btnAtacar.UseVisualStyleBackColor = true;
-            this.btnAtacar.Click += new System.EventHandler(this.AtacarButtonEvent);
-            // 
-            // EnemigoUbiTextbox
-            // 
-            this.EnemigoUbiTextbox.Location = new System.Drawing.Point(368, 510);
-            this.EnemigoUbiTextbox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.EnemigoUbiTextbox.Name = "EnemigoUbiTextbox";
-            this.EnemigoUbiTextbox.Size = new System.Drawing.Size(81, 22);
-            this.EnemigoUbiTextbox.TabIndex = 121;
-            // 
             // T3
             // 
             this.T3.Location = new System.Drawing.Point(720, 441);
@@ -1386,6 +1365,7 @@
             this.T3.TabIndex = 221;
             this.T3.Text = "J3";
             this.T3.UseVisualStyleBackColor = true;
+            this.T3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S3
             // 
@@ -1396,6 +1376,7 @@
             this.S3.TabIndex = 220;
             this.S3.Text = "I3";
             this.S3.UseVisualStyleBackColor = true;
+            this.S3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R3
             // 
@@ -1406,6 +1387,7 @@
             this.R3.TabIndex = 219;
             this.R3.Text = "H3";
             this.R3.UseVisualStyleBackColor = true;
+            this.R3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q3
             // 
@@ -1416,6 +1398,7 @@
             this.Q3.TabIndex = 218;
             this.Q3.Text = "G3";
             this.Q3.UseVisualStyleBackColor = true;
+            this.Q3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P3
             // 
@@ -1426,6 +1409,7 @@
             this.P3.TabIndex = 217;
             this.P3.Text = "F3";
             this.P3.UseVisualStyleBackColor = true;
+            this.P3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O3
             // 
@@ -1436,6 +1420,7 @@
             this.O3.TabIndex = 216;
             this.O3.Text = "E3";
             this.O3.UseVisualStyleBackColor = true;
+            this.O3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N3
             // 
@@ -1446,6 +1431,7 @@
             this.N3.TabIndex = 215;
             this.N3.Text = "D3";
             this.N3.UseVisualStyleBackColor = true;
+            this.N3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M3
             // 
@@ -1456,6 +1442,7 @@
             this.M3.TabIndex = 214;
             this.M3.Text = "C3";
             this.M3.UseVisualStyleBackColor = true;
+            this.M3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L3
             // 
@@ -1466,6 +1453,7 @@
             this.L3.TabIndex = 213;
             this.L3.Text = "B3";
             this.L3.UseVisualStyleBackColor = true;
+            this.L3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k3
             // 
@@ -1476,6 +1464,7 @@
             this.k3.TabIndex = 212;
             this.k3.Text = "A3";
             this.k3.UseVisualStyleBackColor = true;
+            this.k3.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T2
             // 
@@ -1486,6 +1475,7 @@
             this.T2.TabIndex = 211;
             this.T2.Text = "J2";
             this.T2.UseVisualStyleBackColor = true;
+            this.T2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S2
             // 
@@ -1496,6 +1486,7 @@
             this.S2.TabIndex = 210;
             this.S2.Text = "I2";
             this.S2.UseVisualStyleBackColor = true;
+            this.S2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R2
             // 
@@ -1506,6 +1497,7 @@
             this.R2.TabIndex = 209;
             this.R2.Text = "H2";
             this.R2.UseVisualStyleBackColor = true;
+            this.R2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q2
             // 
@@ -1516,6 +1508,7 @@
             this.Q2.TabIndex = 208;
             this.Q2.Text = "G2";
             this.Q2.UseVisualStyleBackColor = true;
+            this.Q2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P2
             // 
@@ -1526,6 +1519,7 @@
             this.P2.TabIndex = 207;
             this.P2.Text = "F2";
             this.P2.UseVisualStyleBackColor = true;
+            this.P2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O2
             // 
@@ -1536,6 +1530,7 @@
             this.O2.TabIndex = 206;
             this.O2.Text = "E2";
             this.O2.UseVisualStyleBackColor = true;
+            this.O2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N2
             // 
@@ -1546,6 +1541,7 @@
             this.N2.TabIndex = 205;
             this.N2.Text = "D2";
             this.N2.UseVisualStyleBackColor = true;
+            this.N2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M2
             // 
@@ -1556,6 +1552,7 @@
             this.M2.TabIndex = 204;
             this.M2.Text = "C2";
             this.M2.UseVisualStyleBackColor = true;
+            this.M2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L2
             // 
@@ -1566,6 +1563,7 @@
             this.L2.TabIndex = 203;
             this.L2.Text = "B2";
             this.L2.UseVisualStyleBackColor = true;
+            this.L2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k2
             // 
@@ -1576,6 +1574,7 @@
             this.k2.TabIndex = 202;
             this.k2.Text = "A2";
             this.k2.UseVisualStyleBackColor = true;
+            this.k2.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T1
             // 
@@ -1586,6 +1585,7 @@
             this.T1.TabIndex = 201;
             this.T1.Text = "J1";
             this.T1.UseVisualStyleBackColor = true;
+            this.T1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S1
             // 
@@ -1596,6 +1596,7 @@
             this.S1.TabIndex = 200;
             this.S1.Text = "I1";
             this.S1.UseVisualStyleBackColor = true;
+            this.S1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R1
             // 
@@ -1606,6 +1607,7 @@
             this.R1.TabIndex = 199;
             this.R1.Text = "H1";
             this.R1.UseVisualStyleBackColor = true;
+            this.R1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q1
             // 
@@ -1616,6 +1618,7 @@
             this.Q1.TabIndex = 198;
             this.Q1.Text = "G1";
             this.Q1.UseVisualStyleBackColor = true;
+            this.Q1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P1
             // 
@@ -1626,6 +1629,7 @@
             this.P1.TabIndex = 197;
             this.P1.Text = "F1";
             this.P1.UseVisualStyleBackColor = true;
+            this.P1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O1
             // 
@@ -1636,6 +1640,7 @@
             this.O1.TabIndex = 196;
             this.O1.Text = "E1";
             this.O1.UseVisualStyleBackColor = true;
+            this.O1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N1
             // 
@@ -1646,6 +1651,7 @@
             this.N1.TabIndex = 195;
             this.N1.Text = "D1";
             this.N1.UseVisualStyleBackColor = true;
+            this.N1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M1
             // 
@@ -1656,6 +1662,7 @@
             this.M1.TabIndex = 194;
             this.M1.Text = "C1";
             this.M1.UseVisualStyleBackColor = true;
+            this.M1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L1
             // 
@@ -1666,6 +1673,7 @@
             this.L1.TabIndex = 193;
             this.L1.Text = "B1";
             this.L1.UseVisualStyleBackColor = true;
+            this.L1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k1
             // 
@@ -1676,6 +1684,7 @@
             this.k1.TabIndex = 192;
             this.k1.Text = "A1";
             this.k1.UseVisualStyleBackColor = true;
+            this.k1.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T4
             // 
@@ -1686,6 +1695,7 @@
             this.T4.TabIndex = 191;
             this.T4.Text = "J4";
             this.T4.UseVisualStyleBackColor = true;
+            this.T4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S4
             // 
@@ -1696,6 +1706,7 @@
             this.S4.TabIndex = 190;
             this.S4.Text = "I4";
             this.S4.UseVisualStyleBackColor = true;
+            this.S4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R4
             // 
@@ -1706,6 +1717,7 @@
             this.R4.TabIndex = 189;
             this.R4.Text = "H4";
             this.R4.UseVisualStyleBackColor = true;
+            this.R4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q4
             // 
@@ -1716,6 +1728,7 @@
             this.Q4.TabIndex = 188;
             this.Q4.Text = "G4";
             this.Q4.UseVisualStyleBackColor = true;
+            this.Q4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P4
             // 
@@ -1726,6 +1739,7 @@
             this.P4.TabIndex = 187;
             this.P4.Text = "F4";
             this.P4.UseVisualStyleBackColor = true;
+            this.P4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O4
             // 
@@ -1736,6 +1750,7 @@
             this.O4.TabIndex = 186;
             this.O4.Text = "E4";
             this.O4.UseVisualStyleBackColor = true;
+            this.O4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N4
             // 
@@ -1746,6 +1761,7 @@
             this.N4.TabIndex = 185;
             this.N4.Text = "D4";
             this.N4.UseVisualStyleBackColor = true;
+            this.N4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M4
             // 
@@ -1756,6 +1772,7 @@
             this.M4.TabIndex = 184;
             this.M4.Text = "C4";
             this.M4.UseVisualStyleBackColor = true;
+            this.M4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L4
             // 
@@ -1766,6 +1783,7 @@
             this.L4.TabIndex = 183;
             this.L4.Text = "B4";
             this.L4.UseVisualStyleBackColor = true;
+            this.L4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k4
             // 
@@ -1776,6 +1794,7 @@
             this.k4.TabIndex = 182;
             this.k4.Text = "A4";
             this.k4.UseVisualStyleBackColor = true;
+            this.k4.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T7
             // 
@@ -1786,6 +1805,7 @@
             this.T7.TabIndex = 181;
             this.T7.Text = "J7";
             this.T7.UseVisualStyleBackColor = true;
+            this.T7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S7
             // 
@@ -1796,6 +1816,7 @@
             this.S7.TabIndex = 180;
             this.S7.Text = "I7";
             this.S7.UseVisualStyleBackColor = true;
+            this.S7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R7
             // 
@@ -1806,6 +1827,7 @@
             this.R7.TabIndex = 179;
             this.R7.Text = "H7";
             this.R7.UseVisualStyleBackColor = true;
+            this.R7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q7
             // 
@@ -1816,6 +1838,7 @@
             this.Q7.TabIndex = 178;
             this.Q7.Text = "G7";
             this.Q7.UseVisualStyleBackColor = true;
+            this.Q7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P7
             // 
@@ -1826,6 +1849,7 @@
             this.P7.TabIndex = 177;
             this.P7.Text = "F7";
             this.P7.UseVisualStyleBackColor = true;
+            this.P7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O7
             // 
@@ -1836,6 +1860,7 @@
             this.O7.TabIndex = 176;
             this.O7.Text = "E7";
             this.O7.UseVisualStyleBackColor = true;
+            this.O7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N7
             // 
@@ -1846,6 +1871,7 @@
             this.N7.TabIndex = 175;
             this.N7.Text = "D7";
             this.N7.UseVisualStyleBackColor = true;
+            this.N7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M7
             // 
@@ -1856,6 +1882,7 @@
             this.M7.TabIndex = 174;
             this.M7.Text = "C7";
             this.M7.UseVisualStyleBackColor = true;
+            this.M7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L7
             // 
@@ -1866,6 +1893,7 @@
             this.L7.TabIndex = 173;
             this.L7.Text = "B7";
             this.L7.UseVisualStyleBackColor = true;
+            this.L7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k7
             // 
@@ -1876,6 +1904,7 @@
             this.k7.TabIndex = 172;
             this.k7.Text = "A7";
             this.k7.UseVisualStyleBackColor = true;
+            this.k7.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T6
             // 
@@ -1886,6 +1915,7 @@
             this.T6.TabIndex = 171;
             this.T6.Text = "J6";
             this.T6.UseVisualStyleBackColor = true;
+            this.T6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S6
             // 
@@ -1896,6 +1926,7 @@
             this.S6.TabIndex = 170;
             this.S6.Text = "I6";
             this.S6.UseVisualStyleBackColor = true;
+            this.S6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R6
             // 
@@ -1906,6 +1937,7 @@
             this.R6.TabIndex = 169;
             this.R6.Text = "H6";
             this.R6.UseVisualStyleBackColor = true;
+            this.R6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q6
             // 
@@ -1916,6 +1948,7 @@
             this.Q6.TabIndex = 168;
             this.Q6.Text = "G6";
             this.Q6.UseVisualStyleBackColor = true;
+            this.Q6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P6
             // 
@@ -1926,6 +1959,7 @@
             this.P6.TabIndex = 167;
             this.P6.Text = "F6";
             this.P6.UseVisualStyleBackColor = true;
+            this.P6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O6
             // 
@@ -1936,6 +1970,7 @@
             this.O6.TabIndex = 166;
             this.O6.Text = "E6";
             this.O6.UseVisualStyleBackColor = true;
+            this.O6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N6
             // 
@@ -1946,6 +1981,7 @@
             this.N6.TabIndex = 165;
             this.N6.Text = "D6";
             this.N6.UseVisualStyleBackColor = true;
+            this.N6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M6
             // 
@@ -1956,6 +1992,7 @@
             this.M6.TabIndex = 164;
             this.M6.Text = "C6";
             this.M6.UseVisualStyleBackColor = true;
+            this.M6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L6
             // 
@@ -1966,6 +2003,7 @@
             this.L6.TabIndex = 163;
             this.L6.Text = "B6";
             this.L6.UseVisualStyleBackColor = true;
+            this.L6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k6
             // 
@@ -1976,6 +2014,7 @@
             this.k6.TabIndex = 162;
             this.k6.Text = "A6";
             this.k6.UseVisualStyleBackColor = true;
+            this.k6.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T5
             // 
@@ -1986,6 +2025,7 @@
             this.T5.TabIndex = 161;
             this.T5.Text = "J5";
             this.T5.UseVisualStyleBackColor = true;
+            this.T5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S5
             // 
@@ -1996,6 +2036,7 @@
             this.S5.TabIndex = 160;
             this.S5.Text = "I5";
             this.S5.UseVisualStyleBackColor = true;
+            this.S5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R5
             // 
@@ -2006,6 +2047,7 @@
             this.R5.TabIndex = 159;
             this.R5.Text = "H5";
             this.R5.UseVisualStyleBackColor = true;
+            this.R5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q5
             // 
@@ -2016,6 +2058,7 @@
             this.Q5.TabIndex = 158;
             this.Q5.Text = "G5";
             this.Q5.UseVisualStyleBackColor = true;
+            this.Q5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P5
             // 
@@ -2026,6 +2069,7 @@
             this.P5.TabIndex = 157;
             this.P5.Text = "F5";
             this.P5.UseVisualStyleBackColor = true;
+            this.P5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O5
             // 
@@ -2036,6 +2080,7 @@
             this.O5.TabIndex = 156;
             this.O5.Text = "E5";
             this.O5.UseVisualStyleBackColor = true;
+            this.O5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N5
             // 
@@ -2046,6 +2091,7 @@
             this.N5.TabIndex = 155;
             this.N5.Text = "D5";
             this.N5.UseVisualStyleBackColor = true;
+            this.N5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M5
             // 
@@ -2056,6 +2102,7 @@
             this.M5.TabIndex = 154;
             this.M5.Text = "C5";
             this.M5.UseVisualStyleBackColor = true;
+            this.M5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L5
             // 
@@ -2066,6 +2113,7 @@
             this.L5.TabIndex = 153;
             this.L5.Text = "B5";
             this.L5.UseVisualStyleBackColor = true;
+            this.L5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k5
             // 
@@ -2076,6 +2124,7 @@
             this.k5.TabIndex = 152;
             this.k5.Text = "A5";
             this.k5.UseVisualStyleBackColor = true;
+            this.k5.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T10
             // 
@@ -2086,6 +2135,7 @@
             this.T10.TabIndex = 151;
             this.T10.Text = "J10";
             this.T10.UseVisualStyleBackColor = true;
+            this.T10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S10
             // 
@@ -2096,6 +2146,7 @@
             this.S10.TabIndex = 150;
             this.S10.Text = "I10";
             this.S10.UseVisualStyleBackColor = true;
+            this.S10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R10
             // 
@@ -2106,6 +2157,7 @@
             this.R10.TabIndex = 149;
             this.R10.Text = "H10";
             this.R10.UseVisualStyleBackColor = true;
+            this.R10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q10
             // 
@@ -2116,6 +2168,7 @@
             this.Q10.TabIndex = 148;
             this.Q10.Text = "G10";
             this.Q10.UseVisualStyleBackColor = true;
+            this.Q10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P10
             // 
@@ -2126,6 +2179,7 @@
             this.P10.TabIndex = 147;
             this.P10.Text = "F10";
             this.P10.UseVisualStyleBackColor = true;
+            this.P10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O10
             // 
@@ -2136,6 +2190,7 @@
             this.O10.TabIndex = 146;
             this.O10.Text = "E10";
             this.O10.UseVisualStyleBackColor = true;
+            this.O10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N10
             // 
@@ -2146,6 +2201,7 @@
             this.N10.TabIndex = 145;
             this.N10.Text = "D10";
             this.N10.UseVisualStyleBackColor = true;
+            this.N10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M10
             // 
@@ -2156,6 +2212,7 @@
             this.M10.TabIndex = 144;
             this.M10.Text = "C10";
             this.M10.UseVisualStyleBackColor = true;
+            this.M10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L10
             // 
@@ -2166,6 +2223,7 @@
             this.L10.TabIndex = 143;
             this.L10.Text = "B10";
             this.L10.UseVisualStyleBackColor = true;
+            this.L10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k10
             // 
@@ -2176,6 +2234,7 @@
             this.k10.TabIndex = 142;
             this.k10.Text = "A10";
             this.k10.UseVisualStyleBackColor = true;
+            this.k10.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T9
             // 
@@ -2186,6 +2245,7 @@
             this.T9.TabIndex = 141;
             this.T9.Text = "J9";
             this.T9.UseVisualStyleBackColor = true;
+            this.T9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S9
             // 
@@ -2196,6 +2256,7 @@
             this.S9.TabIndex = 140;
             this.S9.Text = "I9";
             this.S9.UseVisualStyleBackColor = true;
+            this.S9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R9
             // 
@@ -2206,6 +2267,7 @@
             this.R9.TabIndex = 139;
             this.R9.Text = "H9";
             this.R9.UseVisualStyleBackColor = true;
+            this.R9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q9
             // 
@@ -2216,6 +2278,7 @@
             this.Q9.TabIndex = 138;
             this.Q9.Text = "G9";
             this.Q9.UseVisualStyleBackColor = true;
+            this.Q9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P9
             // 
@@ -2226,6 +2289,7 @@
             this.P9.TabIndex = 137;
             this.P9.Text = "F9";
             this.P9.UseVisualStyleBackColor = true;
+            this.P9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O9
             // 
@@ -2236,6 +2300,7 @@
             this.O9.TabIndex = 136;
             this.O9.Text = "E9";
             this.O9.UseVisualStyleBackColor = true;
+            this.O9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N9
             // 
@@ -2246,6 +2311,7 @@
             this.N9.TabIndex = 135;
             this.N9.Text = "D9";
             this.N9.UseVisualStyleBackColor = true;
+            this.N9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M9
             // 
@@ -2256,6 +2322,7 @@
             this.M9.TabIndex = 134;
             this.M9.Text = "C9";
             this.M9.UseVisualStyleBackColor = true;
+            this.M9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L9
             // 
@@ -2266,6 +2333,7 @@
             this.L9.TabIndex = 133;
             this.L9.Text = "B9";
             this.L9.UseVisualStyleBackColor = true;
+            this.L9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k9
             // 
@@ -2276,6 +2344,7 @@
             this.k9.TabIndex = 132;
             this.k9.Text = "A9";
             this.k9.UseVisualStyleBackColor = true;
+            this.k9.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // T8
             // 
@@ -2286,6 +2355,7 @@
             this.T8.TabIndex = 131;
             this.T8.Text = "J8";
             this.T8.UseVisualStyleBackColor = true;
+            this.T8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // S8
             // 
@@ -2296,6 +2366,7 @@
             this.S8.TabIndex = 130;
             this.S8.Text = "I8";
             this.S8.UseVisualStyleBackColor = true;
+            this.S8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // R8
             // 
@@ -2306,6 +2377,7 @@
             this.R8.TabIndex = 129;
             this.R8.Text = "H8";
             this.R8.UseVisualStyleBackColor = true;
+            this.R8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // Q8
             // 
@@ -2316,6 +2388,7 @@
             this.Q8.TabIndex = 128;
             this.Q8.Text = "G8";
             this.Q8.UseVisualStyleBackColor = true;
+            this.Q8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // P8
             // 
@@ -2326,6 +2399,7 @@
             this.P8.TabIndex = 127;
             this.P8.Text = "F8";
             this.P8.UseVisualStyleBackColor = true;
+            this.P8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // O8
             // 
@@ -2336,6 +2410,7 @@
             this.O8.TabIndex = 126;
             this.O8.Text = "E8";
             this.O8.UseVisualStyleBackColor = true;
+            this.O8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // N8
             // 
@@ -2346,6 +2421,7 @@
             this.N8.TabIndex = 125;
             this.N8.Text = "D8";
             this.N8.UseVisualStyleBackColor = true;
+            this.N8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // M8
             // 
@@ -2356,6 +2432,7 @@
             this.M8.TabIndex = 124;
             this.M8.Text = "C8";
             this.M8.UseVisualStyleBackColor = true;
+            this.M8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // L8
             // 
@@ -2366,6 +2443,7 @@
             this.L8.TabIndex = 123;
             this.L8.Text = "B8";
             this.L8.UseVisualStyleBackColor = true;
+            this.L8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // k8
             // 
@@ -2376,6 +2454,7 @@
             this.k8.TabIndex = 122;
             this.k8.Text = "A8";
             this.k8.UseVisualStyleBackColor = true;
+            this.k8.Click += new System.EventHandler(this.J2PosicionEvent);
             // 
             // txtHelp
             // 
@@ -2388,7 +2467,7 @@
             // labelPJ1
             // 
             this.labelPJ1.AutoSize = true;
-            this.labelPJ1.Location = new System.Drawing.Point(279, 512);
+            this.labelPJ1.Location = new System.Drawing.Point(245, 493);
             this.labelPJ1.Name = "labelPJ1";
             this.labelPJ1.Size = new System.Drawing.Size(21, 16);
             this.labelPJ1.TabIndex = 223;
@@ -2397,7 +2476,7 @@
             // labelPJ2
             // 
             this.labelPJ2.AutoSize = true;
-            this.labelPJ2.Location = new System.Drawing.Point(730, 512);
+            this.labelPJ2.Location = new System.Drawing.Point(730, 493);
             this.labelPJ2.Name = "labelPJ2";
             this.labelPJ2.Size = new System.Drawing.Size(21, 16);
             this.labelPJ2.TabIndex = 224;
@@ -2406,7 +2485,7 @@
             // txtRondas
             // 
             this.txtRondas.AutoSize = true;
-            this.txtRondas.Location = new System.Drawing.Point(650, 512);
+            this.txtRondas.Location = new System.Drawing.Point(650, 493);
             this.txtRondas.Name = "txtRondas";
             this.txtRondas.Size = new System.Drawing.Size(21, 16);
             this.txtRondas.TabIndex = 225;
@@ -2415,7 +2494,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(586, 512);
+            this.label1.Location = new System.Drawing.Point(586, 493);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 16);
             this.label1.TabIndex = 226;
@@ -2431,7 +2510,7 @@
             // labelTJ2
             // 
             this.labelTJ2.AutoSize = true;
-            this.labelTJ2.Location = new System.Drawing.Point(678, 512);
+            this.labelTJ2.Location = new System.Drawing.Point(678, 493);
             this.labelTJ2.Name = "labelTJ2";
             this.labelTJ2.Size = new System.Drawing.Size(46, 16);
             this.labelTJ2.TabIndex = 227;
@@ -2440,7 +2519,7 @@
             // labelTJ1
             // 
             this.labelTJ1.AutoSize = true;
-            this.labelTJ1.Location = new System.Drawing.Point(153, 513);
+            this.labelTJ1.Location = new System.Drawing.Point(153, 493);
             this.labelTJ1.Name = "labelTJ1";
             this.labelTJ1.Size = new System.Drawing.Size(46, 16);
             this.labelTJ1.TabIndex = 228;
@@ -2450,7 +2529,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(765, 512);
+            this.label4.Location = new System.Drawing.Point(757, 493);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 16);
             this.label4.TabIndex = 229;
@@ -2459,22 +2538,22 @@
             // EnemigoUbi
             // 
             this.EnemigoUbi.AutoSize = true;
-            this.EnemigoUbi.Location = new System.Drawing.Point(854, 512);
+            this.EnemigoUbi.Location = new System.Drawing.Point(846, 493);
             this.EnemigoUbi.Name = "EnemigoUbi";
             this.EnemigoUbi.Size = new System.Drawing.Size(21, 16);
             this.EnemigoUbi.TabIndex = 230;
             this.EnemigoUbi.Text = "00";
             // 
-            // buttonAceptar
+            // buttonComenzar
             // 
-            this.buttonAceptar.Enabled = false;
-            this.buttonAceptar.Location = new System.Drawing.Point(524, 486);
-            this.buttonAceptar.Name = "buttonAceptar";
-            this.buttonAceptar.Size = new System.Drawing.Size(75, 23);
-            this.buttonAceptar.TabIndex = 231;
-            this.buttonAceptar.Text = "Aceptar";
-            this.buttonAceptar.UseVisualStyleBackColor = true;
-            this.buttonAceptar.Click += new System.EventHandler(this.buttonAceptar_Click);
+            this.buttonComenzar.Enabled = false;
+            this.buttonComenzar.Location = new System.Drawing.Point(452, 493);
+            this.buttonComenzar.Name = "buttonComenzar";
+            this.buttonComenzar.Size = new System.Drawing.Size(96, 40);
+            this.buttonComenzar.TabIndex = 231;
+            this.buttonComenzar.Text = "Comenzar";
+            this.buttonComenzar.UseVisualStyleBackColor = true;
+            this.buttonComenzar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
             // Form2
             // 
@@ -2483,7 +2562,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1135, 558);
-            this.Controls.Add(this.buttonAceptar);
+            this.Controls.Add(this.buttonComenzar);
             this.Controls.Add(this.EnemigoUbi);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.labelTJ1);
@@ -2593,8 +2672,6 @@
             this.Controls.Add(this.M8);
             this.Controls.Add(this.L8);
             this.Controls.Add(this.k8);
-            this.Controls.Add(this.EnemigoUbiTextbox);
-            this.Controls.Add(this.btnAtacar);
             this.Controls.Add(this.J3);
             this.Controls.Add(this.I3);
             this.Controls.Add(this.H3);
@@ -2810,8 +2887,6 @@
         private System.Windows.Forms.Button I8;
         private System.Windows.Forms.Button H8;
         private System.Windows.Forms.Timer TimerEnemigo;
-        private System.Windows.Forms.TextBox EnemigoUbiTextbox;
-        private System.Windows.Forms.Button btnAtacar;
         private System.Windows.Forms.Button T3;
         private System.Windows.Forms.Button S3;
         private System.Windows.Forms.Button R3;
@@ -2922,6 +2997,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelTJ1;
         private System.Windows.Forms.Label labelTJ2;
-        private System.Windows.Forms.Button buttonAceptar;
+        private System.Windows.Forms.Button buttonComenzar;
     }
 }

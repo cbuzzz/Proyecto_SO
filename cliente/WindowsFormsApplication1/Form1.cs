@@ -359,6 +359,12 @@ namespace WindowsFormsApplication1
                         }
                         forms[nForm].TomarRespuesta8(coordenadas);
                         break;
+                    case 9:
+                        nForm = Convert.ToInt32(trozos[1]);
+                        string casilla = trozos[2];
+                        forms[nForm].TomarRespuesta9(casilla);
+                        break;
+                     
 
                 }
             }

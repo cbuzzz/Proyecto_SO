@@ -636,7 +636,28 @@ void* AtenderCliente(void* socket)
 			}
 			
 		}
-		
+		//
+		// Jugador casilla que ha atacado
+		//
+		else if (codigo == 9)
+		{
+			
+			p = strtok(NULL, "/");
+			int nForm = atoi(p);
+			p = strtok(NULL, "/");
+			char casilla[3];
+			strcpy(casilla,p);
+			p = strtok(NULL, "/");
+			char j2[30];
+			strcpy(j2,p);
+			sprintf(respuesta,"9/%d/%s",nForm,casilla);
+			printf("Respuesta: %s\n",respuesta);
+			for(i=0;i<miLista.num;i++){
+				if(strcmp(miLista.conectados[i].nombre,j2) == 0)
+					write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
+			}
+			
+		}
 	}
 	close(sock_conn);
 	
