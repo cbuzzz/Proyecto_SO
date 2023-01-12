@@ -575,18 +575,20 @@ void* AtenderCliente(void* socket)
 			p = strtok(NULL, "/");
 			
 			if(strcmp(p,"Si") == 0){
-				
+				int turno1 = 1;
+				int turno2 = 0;
 				p = strtok(NULL, "/");
 				strcpy(invitado, p);
 				p = strtok(NULL, "/");
 				strcpy(invitador, p);
-				sprintf(respuesta,"7/Si/",invitado);
+				sprintf(respuesta,"7/Si/%d",turno1);
+				sprintf(respuesta2,"7/Si/%d",turno2);
 				printf("Respuesta: %s\n",respuesta);
 				for(i=0;i<miLista.num;i++){
 					if(strcmp(miLista.conectados[i].nombre,invitado) == 0)
 						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
 					else if(strcmp(miLista.conectados[i].nombre,invitador) == 0)
-						write(miLista.conectados[i].socket, respuesta, strlen(respuesta));
+						write(miLista.conectados[i].socket, respuesta2, strlen(respuesta));
 				}
 			}
 			else{

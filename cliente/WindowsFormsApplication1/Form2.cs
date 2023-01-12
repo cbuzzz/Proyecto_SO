@@ -24,8 +24,8 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaLblRondas(int rondas);
         delegate void DelegadoParaEnabled(int index);
         delegate void DelegadoParaBtnImageColor(int index, int h);
-        
         delegate void DelegadoParaLblPoints(string puntos);
+        delegate void DelegadoParaLblTurno(int turno);
 
         int barcos;
         int round;
@@ -34,6 +34,7 @@ namespace WindowsFormsApplication1
         int nForm;
         string j1;
         string j2;
+        int turno;
         Socket server;
         string[] mensajeE = new string[20];
         string[] barcosEnemigo = new string[17];
@@ -42,6 +43,7 @@ namespace WindowsFormsApplication1
         int cont = 4;
         int index;
         int ubicados = 0;
+        
 
         public void EscribirLblR(int rondas)
         {
@@ -51,6 +53,22 @@ namespace WindowsFormsApplication1
         public void EscribirLblP(string points)
         {   
             labelPJ1.Text = points;
+        }
+        public void EscribirLblT(int turno)
+        {
+            if (turno == 1) 
+            {
+                labelTurno.Text = "TU TURNO";
+                labelTurno.BackColor = Color.Green;
+                labelTurno.ForeColor = Color.White;
+            }
+            else
+            {
+                labelTurno.Text = "TURNO RIVAL";
+                labelTurno.BackColor = Color.Red;
+                labelTurno.ForeColor = Color.White;
+            }
+            
         }
         public void EnableBtnJ(int index)
         {
@@ -112,20 +130,19 @@ namespace WindowsFormsApplication1
                 PosicionJugadorButton[index].BackColor = Color.DarkBlue;
                 
             }
-                
             
         }
         
 
-        public Form2(int nForm, Socket server, string j1, string j2)
+        public Form2(int nForm, Socket server, string j1, string j2, int turno)
         {
             InitializeComponent();
             this.nForm = nForm;
             this.server = server;
             this.j1 = j1;
             this.j2 = j2;
+            this.turno = turno;
             ReiniciarJuego();
-            
         }
 
         private void Form2_Load(object sender, EventArgs e)
@@ -141,58 +158,7 @@ namespace WindowsFormsApplication1
 
         private void TimerEnemigoEvent(object sender, EventArgs e)
         {
-            //if (PosicionJugadorButton.Count > 0 && round > 0)
-            //{
-            //    round -= 1;
-
-            //    txtRondas.Text = "Round: " + round;
-
-            //    int index = random.Next(PosicionJugadorButton.Count);
-
-            //    if ((string)PosicionJugadorButton[index].Tag == "BarcoJugador")
-            //    {
-            //        PosicionJugadorButton[index].BackgroundImage = imageList1.Images[0];
-            //        EnemigoUbi.Text = PosicionJugadorButton[index].Text;
-            //        PosicionJugadorButton[index].Enabled = false;
-            //        PosicionJugadorButton[index].BackColor = Color.DarkBlue;
-            //        PosicionJugadorButton.RemoveAt(index);
-            //        PuntosEnemigo += 1;
-            //        labelPJ2.Text = PuntosEnemigo.ToString();
-            //        TimerEnemigo.Stop();
-            //    }
-            //    else
-            //    {
-            //        PosicionJugadorButton[index].BackgroundImage = imageList1.Images[1];
-            //        EnemigoUbi.Text = PosicionJugadorButton[index].Text;
-            //        PosicionJugadorButton[index].Enabled = false;
-            //        PosicionJugadorButton[index].BackColor = Color.DarkBlue;
-            //        PosicionJugadorButton.RemoveAt(index);
-            //        TimerEnemigo.Stop();
-            //    }
-            //}
-
-            //if (round < 1)
-            //{
-
-            //    if (PuntosJugador > PuntosEnemigo)
-            //    {
-            //        MessageBox.Show("Ganaste!");
-            //        round = 50;
-            //        ReiniciarJuego();
-            //    }
-            //    else if (PuntosEnemigo > PuntosJugador)
-            //    {
-            //        MessageBox.Show("Perdiste bobo");
-            //        round = 50;
-            //        ReiniciarJuego();
-            //    }
-            //    else if (PuntosEnemigo == PuntosJugador)
-            //    {
-            //        MessageBox.Show("Empataste");
-            //        round = 50;
-            //        ReiniciarJuego();
-            //    }
-            //}
+            
         }
 
 
@@ -326,7 +292,6 @@ namespace WindowsFormsApplication1
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
                 server.Send(msg);
                 buttonComenzar.Enabled = true;
-                buttonComenzar.Enabled = true;
                 buttonComenzar.BackColor = Color.Red;
                 buttonComenzar.ForeColor = Color.White;
             }
@@ -383,11 +348,25 @@ namespace WindowsFormsApplication1
 
         private void ReiniciarJuego()
         {
+            
             //asignamos a la lista todos los botones (coordenadas) del mapa a la posición de cada jugador
             PosicionEnemigoButton = new List<Button> { k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, N1,N2, N3, N4, N5, N6, N7, N8, N9, N10, O1, O2, O3, O4, O5, O6, O7, O8, O9, O10, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10};
             PosicionJugadorButton = new List<Button> { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, J1, J2, J3, J4, J5, J6, J7, J8, J9, J10};
 
-            
+
+            if (turno == 1)
+            {
+                labelTurno.Text = "TU TURNO";
+                labelTurno.BackColor = Color.Green;
+                labelTurno.ForeColor = Color.White;
+            }
+            else
+            {
+                labelTurno.Text = "TURNO RIVAL";
+                labelTurno.BackColor = Color.Red;
+                labelTurno.ForeColor = Color.White;
+            }
+
 
             txtHelp.Text = "1) Clica en 17 casillas para poner tu flota.";
 
@@ -423,26 +402,7 @@ namespace WindowsFormsApplication1
 
         }
 
-        private void PickearUbiEnemigo()
-        {
-
-            for (int i = 0; i < 100; i++)
-            {
-                int index = random.Next(PosicionEnemigoButton.Count);
-
-                if (PosicionEnemigoButton[index].Enabled == true && (string)PosicionEnemigoButton[index].Tag == null)
-                {
-                    PosicionEnemigoButton[index].Tag = "BarcoEnemigo";
-
-                }
-                else
-                {
-                    index = random.Next(PosicionEnemigoButton.Count);
-                }
-            }
-
-
-        }
+        
         private void PickearUbiEnemigoJ2()
         {
             for(int i = 0; i < PosicionEnemigoButton.Count - 1; i++)
@@ -526,7 +486,9 @@ namespace WindowsFormsApplication1
         {
             this.casillaAtacada = casilla;
             CasillaAtacar(casillaAtacada);
-            
+            DelegadoParaLblTurno delegadoLblT = new DelegadoParaLblTurno(EscribirLblT);
+            turno = 1;
+            Invoke(delegadoLblT, new object[] { turno });
         }
         private void labelTJ1_Click(object sender, EventArgs e)
         {
@@ -541,6 +503,8 @@ namespace WindowsFormsApplication1
                 ubicados = 1;
                 //una vez estén todos los barcos propios marcados, el botón de atacar se vuelve rojo (está a punto) ya para atacar
                 buttonComenzar.Enabled= false;
+                buttonComenzar.BackColor = Color.White;
+                buttonComenzar.ForeColor = Color.Black;
                 txtHelp.Text = "2) Ahora escribe donde quieres atacar";
             }
             else MessageBox.Show("Espera a que tu contrincante posicione sus barcos");
@@ -549,8 +513,9 @@ namespace WindowsFormsApplication1
 
         private void J2PosicionEvent(object sender, EventArgs e)
         {
-            if (ubicados == 1) 
+            if (ubicados == 1 && turno == 1)
             {
+                DelegadoParaLblTurno delegadoLblT = new DelegadoParaLblTurno(EscribirLblT);
                 var button = (Button)sender;
                 string mensaje = "9/" + nForm + "/" + button.Text + "/" + j2;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
@@ -571,7 +536,7 @@ namespace WindowsFormsApplication1
                     // PosicionJugadorButton[index].BackgroundImage = imageList1.Images[0]; //llamo al icono de fuego
                     // PosicionJugadorButton[index].BackColor = Color.DarkBlue;
                     Invoke(delegadoBtnImageColorE, new object[] { indexE, h });
-                    
+
                 }
                 else
                 {
@@ -586,7 +551,12 @@ namespace WindowsFormsApplication1
                     //TimerEnemigo.Start();
 
                 }
+                turno = 0;
+                Invoke(delegadoLblT, new object[] { turno });
+
             }
+            else if (ubicados == 1 && turno == 0) MessageBox.Show("¡Espera a que sea tu turno!");
+            else if (ubicados == 0) MessageBox.Show("Antes de atacar debes seleccionar tus barcos");
         }
     }
 }

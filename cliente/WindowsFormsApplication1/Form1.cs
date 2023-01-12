@@ -53,6 +53,7 @@ namespace WindowsFormsApplication1
         string j1;
         string j2;
         int iniciado;
+        int turno;
         List<Form2> forms = new List<Form2>();
         public Cliente()
         {
@@ -338,6 +339,7 @@ namespace WindowsFormsApplication1
                     case 7:
                         if (trozos[1] == "Si")
                         {
+                            turno = Convert.ToInt32(trozos[2]);
                             Invoke(delegadoBorrarInv, new object[] { });
                             ThreadStart fgame = delegate { CrearFormulario(); };
                             Thread atendergame = new Thread(fgame);
@@ -563,7 +565,7 @@ namespace WindowsFormsApplication1
         private void CrearFormulario() 
         {
             int cont = forms.Count;
-            Form2 frm = new Form2(cont,server,j1,j2);
+            Form2 frm = new Form2(cont,server,j1,j2,turno);
             forms.Add(frm);
             frm.ShowDialog();
             

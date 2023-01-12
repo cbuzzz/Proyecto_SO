@@ -243,6 +243,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.EnemigoUbi = new System.Windows.Forms.Label();
             this.buttonComenzar = new System.Windows.Forms.Button();
+            this.labelTurno = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -2555,6 +2556,16 @@
             this.buttonComenzar.UseVisualStyleBackColor = true;
             this.buttonComenzar.Click += new System.EventHandler(this.buttonAceptar_Click);
             // 
+            // labelTurno
+            // 
+            this.labelTurno.AutoSize = true;
+            this.labelTurno.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.134328F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTurno.Location = new System.Drawing.Point(294, 493);
+            this.labelTurno.Name = "labelTurno";
+            this.labelTurno.Size = new System.Drawing.Size(53, 20);
+            this.labelTurno.TabIndex = 232;
+            this.labelTurno.Text = "label2";
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2562,6 +2573,7 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1135, 558);
+            this.Controls.Add(this.labelTurno);
             this.Controls.Add(this.buttonComenzar);
             this.Controls.Add(this.EnemigoUbi);
             this.Controls.Add(this.label4);
@@ -2998,5 +3010,6 @@
         private System.Windows.Forms.Label labelTJ1;
         private System.Windows.Forms.Label labelTJ2;
         private System.Windows.Forms.Button buttonComenzar;
+        private System.Windows.Forms.Label labelTurno;
     }
 }
