@@ -11,7 +11,7 @@
 #define MAX 100
 
 pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
-int puerto = 9050;
+int puerto = 9060;
 //
 // Estructura para un usuario conectado al servidor.
 //
@@ -36,7 +36,7 @@ typedef struct
 char ID[3];
 ListaConectados miLista;
 char barcosJ1[100];
-
+char jugadoresjugados[200];
 //
 //Funcion que pone en la lista de conectados un usuario
 //Anade un nuevo conectado en la lista de conectados o devuelve un -1 si la lista esta llena
@@ -151,11 +151,11 @@ int Login(char respuesta[512], char username[20], char password[20], MYSQL* conn
 	MYSQL_RES* resultado;
 	MYSQL_ROW row;
 	
-/*	strcpy(consulta, "SELECT JUGADOR.USERNAME,JUGADOR.PASSWORD FROM JUGADOR WHERE JUGADOR.USERNAME='");*/
-/*	strcat(consulta, username);*/
-/*	strcat(consulta, "' AND JUGADOR.PASSWORD='");*/
-/*	strcat(consulta, password);*/
-/*	strcat(consulta, "';\n");*/
+	/*	strcpy(consulta, "SELECT JUGADOR.USERNAME,JUGADOR.PASSWORD FROM JUGADOR WHERE JUGADOR.USERNAME='");*/
+	/*	strcat(consulta, username);*/
+	/*	strcat(consulta, "' AND JUGADOR.PASSWORD='");*/
+	/*	strcat(consulta, password);*/
+	/*	strcat(consulta, "';\n");*/
 	sprintf(consulta,"SELECT JUGADOR.USERNAME,JUGADOR.PASSWORD FROM JUGADOR WHERE JUGADOR.USERNAME='%s' AND JUGADOR.PASSWORD='%s';\n",username,password);
 	
 	int err = mysql_query(conn, consulta);
@@ -312,6 +312,218 @@ int DarDeBaja(char respuesta[200], char username[20], char password[20], MYSQL* 
 	}
 	else
 		return -1;
+}
+int DameUsuariosJugados (char username[20], MYSQL *conn, char jugadores[200])
+{
+	char consulta[500];
+	MYSQL_RES *resultado;
+	MYSQL_ROW row;
+	int cont;
+	
+	strcpy (consulta, "SELECT DISTINCT JUGADOR.USERNAME FROM (JUGADOR, PARTIDA, JUGADORPARTIDA) WHERE PARTIDA.ID IN ");
+	strcat (consulta, "( SELECT PARTIDA.ID FROM (JUGADOR,PARTIDA,JUGADORPARTIDA) "); 
+	strcat (consulta, "WHERE JUGADOR.USERNAME = '");
+	strcat (consulta, username); 
+	strcat (consulta, "' ");
+	strcat (consulta,"AND JUGADOR.ID = JUGADORPARTIDA.JUGADOR_ID ");
+	strcat (consulta,"AND JUGADORPARTIDA.PARTIDA_ID = PARTIDA.ID) ");
+	strcat (consulta,"AND PARTIDA.ID = JUGADORPARTIDA.PARTIDA_ID ");
+	strcat (consulta,"AND JUGADORPARTIDA.JUGADOR_ID = JUGADOR.ID ");
+	strcat (consulta, "AND JUGADOR.USERNAME NOT IN ('");
+	strcat (consulta, username); 
+	strcat (consulta, "');");
+	
+	
+	int err = mysql_query(conn, consulta);
+	if (err!=0)
+	{
+		printf ("Consulta mal hecha %u %s\n", mysql_errno(conn), mysql_error(conn));
+		exit (1);
+	}
+	
+	resultado = mysql_store_result (conn);
+	row = mysql_fetch_row (resultado);
+	
+	if (row == NULL)
+	{
+		printf ("No has jugado ninguna partida\n");
+		cont = 0;
+		return -1;
+	}
+	
+	else 
+	{
+		cont = 0; 
+		
+		while (row !=NULL) 
+		{
+			printf ("Has jugado contra: %s\n", row[0]);
+			sprintf(jugadoresjugados, "%s%s/", jugadoresjugados, row[0]);
+			row = mysql_fetch_row (resultado);
+			cont= cont +1;
+		}
+		strcpy(jugadores,jugadoresjugados);
+		printf("Jugadores con los que has jugado alguna partida : %s\n",jugadores);
+		return 0;
+	}
+}
+//
+// Funcion que pone en el vector "ganadores"(pasado como parametro) los ganadores de todas las  
+// partidas jugadas contra un determinado jugador("contrincante").
+// Retorna el numero de partidos contra ese jugador o un -1 en caso de que no hayan jugado ninguna partida.
+//
+int DameResultados (char username[20], char contrincante[20], MYSQL *conn, char ganadores[200])
+{
+	char consulta[500];
+	MYSQL_RES *resultado;
+	MYSQL_ROW row;
+	int cont;
+	
+	strcpy (consulta, "SELECT PARTIDA.GANADOR FROM (JUGADOR,PARTIDA,JUGADORPARTIDA) WHERE PARTIDA.ID IN ");
+	strcat (consulta, "( SELECT PARTIDA.ID FROM (JUGADOR,PARTIDA, JUGADORPARTIDA) "); 
+	strcat (consulta, "WHERE JUGADOR.USERNAME = '");
+	strcat (consulta, username); 
+	strcat (consulta, "' ");
+	strcat (consulta,"AND JUGADOR.ID = JUGADORPARTIDA.JUGADOR_ID ");
+	strcat (consulta,"AND JUGADORPARTIDA.ID_P = PARTIDA.ID) ");
+	strcat (consulta,"AND PARTIDA.ID = JUGADORPARTIDA.PARTIDA_ID ");
+	strcat (consulta,"AND JUGADORPARTIDA.JUGADOR_ID = JUGADOR.ID ");
+	strcat (consulta,"AND JUGADOR.USERNAME = '");
+	strcat (consulta, contrincante); 
+	strcat (consulta, "' ");
+	strcat (consulta,"AND JUGADOR.ID = JUGADORPARTIDA.JUGADOR_ID ");
+	strcat (consulta,"AND JUGADORPARTIDA.PARTIDA_ID = PARTIDA.ID; ");
+	
+	int err = mysql_query(conn, consulta);
+	if (err!=0)
+	{
+		printf ("Consulta mal hecha %u %s\n", mysql_errno(conn), mysql_error(conn));
+		cont = 0;
+		exit (1);
+	}
+	
+	resultado = mysql_store_result (conn);
+	row = mysql_fetch_row (resultado);
+	
+	if (row == NULL)
+	{
+		printf ("El jugador no ha jugado niguna partida\n");
+		return -1;
+	}
+	
+	else 
+	{
+		cont = 0; 
+		char losganadores[200];
+		strcpy(losganadores, "");
+		while (row !=NULL) 
+		{
+			printf ("Ganador de la partida: %s\n", row[0]);
+			sprintf(losganadores, "%s%s/", losganadores, row[0]);
+			row = mysql_fetch_row (resultado);
+			cont= cont +1;
+		}
+		strcpy(ganadores,losganadores);
+		printf("EN LA FUNCION SALE :  %s\n", losganadores);
+		return cont;
+	}
+}
+int DameTodosUsuarios ( MYSQL *conn, char respuesta[200], char username[200])
+{
+	char consulta[500];
+	MYSQL_RES *resultado;
+	MYSQL_ROW row;
+	int cont;
+	
+	strcpy (consulta, "SELECT * FROM JUGADOR WHERE JUGADOR.USERNAME NOT IN ('");
+	strcat (consulta, username); 
+	strcat (consulta, "');");
+	
+	int err = mysql_query(conn, consulta);
+	if (err!=0)
+	{
+		printf ("Consulta mal hecha %u %s\n", mysql_errno(conn), mysql_error(conn));
+		cont = 0;
+		exit (1);
+	}
+	
+	resultado = mysql_store_result (conn);
+	row = mysql_fetch_row (resultado);
+	
+	if (row == NULL)
+	{
+		printf ("No hay jugadores registrados\n");
+		return -1;
+	}
+	
+	else 
+	{
+		cont = 0; 
+		strcpy(respuesta,"");
+		while (row !=NULL) 
+		{
+			printf ("Username:     %s\n", row[1]);
+			sprintf(respuesta, "%s%s/", respuesta, row[1]);
+			row = mysql_fetch_row (resultado);
+			cont= cont +1;
+		}
+		return cont;
+	}
+}
+//
+// Funcion que retorna el numero de partidas ganadas del usuario pasado como par￡metro.
+// Retorna un -1 en caso de no haber encontrado ning n jugador con ese nombre de usuario.
+//
+int DamePartidasGanadas (char username[20], MYSQL *conn)
+{
+	char consulta[500];
+	MYSQL_RES *resultado;
+	MYSQL_ROW row;
+	int cont;
+	
+	strcpy (consulta, "SELECT JUGADOR.USERNAME FROM (JUGADOR,PARTIDA,JUGADORPARTIDA) ");
+	strcat (consulta, "WHERE JUGADOR.USERNAME = '");
+	strcat (consulta, username); 
+	strcat (consulta, "' ");
+	strcat (consulta,"AND JUGADOR.ID = JUGADORPARTIDA.JUGADOR_ID ");
+	strcat (consulta,"AND JUGADOR.PARTIDA_ID= PARTIDA.ID ");
+	strcat (consulta,"AND PARTIDA.GANADOR ='");
+	strcat (consulta, username); 
+	strcat (consulta, "';");
+	
+	
+	int err = mysql_query(conn, consulta);
+	if (err!=0)
+	{
+		printf ("Consulta mal hecha %u %s\n", mysql_errno(conn), mysql_error(conn));
+		exit (1);
+	}
+	
+	resultado = mysql_store_result (conn);
+	row = mysql_fetch_row (resultado);
+	
+	if (row == NULL)
+	{
+		printf ("No has ganado ninguna partida\n");
+		cont = 0;
+		return -1;
+	}
+	
+	else 
+	{
+		cont = 0; 
+		char partidasganadas[200];
+		strcpy(partidasganadas,"");
+		while (row !=NULL) 
+		{
+			printf ("PARTIDA GANADA: %s\n", row[0]);
+			sprintf(partidasganadas, "%s%s/", partidasganadas, row[0]);
+			row = mysql_fetch_row (resultado);
+			cont= cont +1;
+		}
+		printf("Numero de partidas ganadas : %d\n",cont);
+		return cont;
+	}
 }
 //
 //   A T E N D E R   C L I E N T E
@@ -592,7 +804,7 @@ void* AtenderCliente(void* socket)
 				}
 			}
 			else{
-			
+				
 				p = strtok(NULL, "/");
 				strcpy(invitado, p);
 				p = strtok(NULL, "/");
@@ -660,6 +872,74 @@ void* AtenderCliente(void* socket)
 			}
 			
 		}
+		else if(codigo == 10)
+		{
+			char JugadoresJugados[200];
+			char jugadores[200];
+			int ans = DameUsuariosJugados(username,conn,JugadoresJugados);
+			if (ans == 0)
+			{
+				sprintf(jugadores,"10/%s",JugadoresJugados);
+				printf("%s\n", jugadores);
+				write(sock_conn, jugadores , strlen(jugadores));
+			}
+			else
+			{
+				strcpy(respuesta,"10/No");
+				write(sock_conn, respuesta, strlen(respuesta));
+			}
+		}
+		else if(codigo == 11)
+		{
+			char Usuarios[200];
+			int resultado = DameTodosUsuarios(conn, Usuarios,username);
+			
+			if (resultado != -1)
+			{
+				sprintf(respuesta,"11-%d/%s", resultado, Usuarios);
+				printf("%s\n", respuesta);
+				write(sock_conn, respuesta , strlen(respuesta));
+			}
+			else
+			{
+				sprintf(respuesta,"11-%s", respuesta);
+				write(sock_conn, respuesta, strlen(respuesta));
+			}
+		}
+		else if(codigo == 12)
+		{
+			char ganadoress[200];
+			char ganadorescliente[200];
+			char contrincante[20]; //Jugador del que quiero ver resultados de las partidas jugadas conta mi.
+			
+			p = strtok( NULL, "/");
+			strcpy(contrincante,p);
+			
+			int cont = DameResultados(username,contrincante,conn,ganadoress);
+			if (cont != -1)
+			{
+				sprintf(ganadorescliente,"12-%d/%s", cont, ganadoress);
+				printf("Esto lo enviamos al cliente %s\n", ganadorescliente);
+				write(sock_conn, ganadorescliente , strlen(ganadorescliente));
+			}
+			else
+			{
+				sprintf(respuesta,"12-0/%s", respuesta);
+				write(sock_conn, respuesta, strlen(respuesta));
+			}
+		}
+		else if(codigo == 13)
+		{
+			char jugador[20]; // jugador del que quiero ver el numero las partidas ganadas.
+			strcpy(jugador,"");
+			
+			p = strtok( NULL, "/");
+			strcpy(jugador,p);
+			
+			int PartidasGanadas = DamePartidasGanadas(jugador,conn);
+			sprintf(respuesta,"13-%d",PartidasGanadas);
+			write(sock_conn, respuesta , strlen(respuesta));
+		}
 	}
 	close(sock_conn);
 	
@@ -709,5 +989,6 @@ int main(int argc, char* argv[])
 		i++;
 	}
 }
+
 
 

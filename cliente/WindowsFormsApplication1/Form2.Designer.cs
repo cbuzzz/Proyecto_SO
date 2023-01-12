@@ -240,8 +240,6 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.labelTJ2 = new System.Windows.Forms.Label();
             this.labelTJ1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.EnemigoUbi = new System.Windows.Forms.Label();
             this.buttonComenzar = new System.Windows.Forms.Button();
             this.labelTurno = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
@@ -2468,7 +2466,7 @@
             // labelPJ1
             // 
             this.labelPJ1.AutoSize = true;
-            this.labelPJ1.Location = new System.Drawing.Point(245, 493);
+            this.labelPJ1.Location = new System.Drawing.Point(264, 493);
             this.labelPJ1.Name = "labelPJ1";
             this.labelPJ1.Size = new System.Drawing.Size(21, 16);
             this.labelPJ1.TabIndex = 223;
@@ -2477,7 +2475,7 @@
             // labelPJ2
             // 
             this.labelPJ2.AutoSize = true;
-            this.labelPJ2.Location = new System.Drawing.Point(730, 493);
+            this.labelPJ2.Location = new System.Drawing.Point(793, 493);
             this.labelPJ2.Name = "labelPJ2";
             this.labelPJ2.Size = new System.Drawing.Size(21, 16);
             this.labelPJ2.TabIndex = 224;
@@ -2490,7 +2488,7 @@
             this.txtRondas.Name = "txtRondas";
             this.txtRondas.Size = new System.Drawing.Size(21, 16);
             this.txtRondas.TabIndex = 225;
-            this.txtRondas.Text = "25";
+            this.txtRondas.Text = "10";
             // 
             // label1
             // 
@@ -2511,7 +2509,7 @@
             // labelTJ2
             // 
             this.labelTJ2.AutoSize = true;
-            this.labelTJ2.Location = new System.Drawing.Point(678, 493);
+            this.labelTJ2.Location = new System.Drawing.Point(741, 493);
             this.labelTJ2.Name = "labelTJ2";
             this.labelTJ2.Size = new System.Drawing.Size(46, 16);
             this.labelTJ2.TabIndex = 227;
@@ -2520,30 +2518,12 @@
             // labelTJ1
             // 
             this.labelTJ1.AutoSize = true;
-            this.labelTJ1.Location = new System.Drawing.Point(153, 493);
+            this.labelTJ1.Location = new System.Drawing.Point(137, 493);
             this.labelTJ1.Name = "labelTJ1";
             this.labelTJ1.Size = new System.Drawing.Size(46, 16);
             this.labelTJ1.TabIndex = 228;
             this.labelTJ1.Text = "Pts J1:";
             this.labelTJ1.Click += new System.EventHandler(this.labelTJ1_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(757, 493);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(83, 16);
-            this.label4.TabIndex = 229;
-            this.label4.Text = "J2 ATAQUE:";
-            // 
-            // EnemigoUbi
-            // 
-            this.EnemigoUbi.AutoSize = true;
-            this.EnemigoUbi.Location = new System.Drawing.Point(846, 493);
-            this.EnemigoUbi.Name = "EnemigoUbi";
-            this.EnemigoUbi.Size = new System.Drawing.Size(21, 16);
-            this.EnemigoUbi.TabIndex = 230;
-            this.EnemigoUbi.Text = "00";
             // 
             // buttonComenzar
             // 
@@ -2575,8 +2555,6 @@
             this.ClientSize = new System.Drawing.Size(1135, 558);
             this.Controls.Add(this.labelTurno);
             this.Controls.Add(this.buttonComenzar);
-            this.Controls.Add(this.EnemigoUbi);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.labelTJ1);
             this.Controls.Add(this.labelTJ2);
             this.Controls.Add(this.label1);
@@ -3005,8 +2983,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label txtRondas;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Label EnemigoUbi;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label labelTJ1;
         private System.Windows.Forms.Label labelTJ2;
         private System.Windows.Forms.Button buttonComenzar;

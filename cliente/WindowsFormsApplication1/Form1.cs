@@ -47,14 +47,16 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaBorrarInv();
         delegate void DelegadoParaJuego();
         int desconectado;
-        int puerto = 9050;
+        int puerto = 9060;
         string ip = "192.168.56.102";
-        int nForm;
+        int nForm2;
+        int nForm3;
         string j1;
         string j2;
         int iniciado;
         int turno;
         List<Form2> forms = new List<Form2>();
+        List<Form3> forms3 = new List<Form3>();
         public Cliente()
         {
             InitializeComponent();
@@ -351,7 +353,7 @@ namespace WindowsFormsApplication1
 
                         break;
                     case 8:
-                        nForm = Convert.ToInt32(trozos[1]);
+                        nForm2 = Convert.ToInt32(trozos[1]);
                         string[] coordenadas = new string[17];
                         int j = 0;
                         for (i = 2; i < 19; i++)
@@ -359,14 +361,34 @@ namespace WindowsFormsApplication1
                             coordenadas[j] = trozos[i];
                             j++;
                         }
-                        forms[nForm].TomarRespuesta8(coordenadas);
+                        forms[nForm2].TomarRespuesta8(coordenadas);
                         break;
                     case 9:
-                        nForm = Convert.ToInt32(trozos[1]);
+                        nForm2 = Convert.ToInt32(trozos[1]);
                         string casilla = trozos[2];
-                        forms[nForm].TomarRespuesta9(casilla);
+                        forms[nForm2].TomarRespuesta9(casilla);
                         break;
-                     
+                    case 10:
+                        if (trozos[1] == "No")
+                        {
+                            MessageBox.Show("No has jugado con ningun usario todavia");
+
+                        }
+                        else
+                        {
+                            string[] p = new string[trozos.Length - 1];
+                            for (i = 1; i < trozos.Length; i++)
+                            {
+                                p[i] = trozos[i];
+                            }
+
+                            forms3[nForm3].TomarRespuesta10(p);
+                            MessageBox.Show("Ha ocurrido un error al dar de baja el usuario");
+
+
+                        }
+                        break;
+
 
                 }
             }
@@ -588,6 +610,19 @@ namespace WindowsFormsApplication1
                 
             }
             
+        }
+        private void CrearFormulario3()
+        {
+
+            nForm3 = forms.Count;
+            Form3 frm = new Form3(nForm3, server);
+            forms3.Add(frm);
+            frm.ShowDialog();
+
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CrearFormulario3();
         }
     }
 }

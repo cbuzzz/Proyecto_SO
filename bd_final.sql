@@ -13,9 +13,7 @@ CREATE TABLE JUGADOR (
 
  PRIMARY KEY (ID) -- aqui sobraba una coma con lo cual SQL no compilaba y la tabla no se creaba
 
-
-
-);
+);ENGINE=InnoDB;
 
 
 
@@ -23,15 +21,12 @@ CREATE TABLE PARTIDA (
 
  ID INT NOT NULL,
 
- FECHAFIN DATE,
-
- DURACION INT NULL,
-
- GANADOR VARCHAR(50),
+ GANADOR VARCHAR(60),
 
  PRIMARY KEY (ID)
 
-);
+);ENGINE=InnoDB;
+
 
 
 
@@ -51,9 +46,7 @@ CREATE TABLE JUGADORPARTIDA (
 
 
 
-/* DATOS INSERTADOS EN PARTIDA / CARTAS / EQUIPOS HECHO POR MIS
 
-COMPAÑEROS*/
 
 
 
@@ -66,6 +59,10 @@ INSERT INTO JUGADOR VALUES (1, 'Monica', 'mesi123', 'monicagamer');
 INSERT INTO JUGADOR VALUES (2, 'Mark', 'marco123', 'mark777');
 
 INSERT INTO JUGADOR VALUES (3, 'Rachel', 'cr7siu', 'rachelthebest');
+
+
+
+INSERT INTO PARTIDA VALUES (1, 'monicagamer');
 
 
 

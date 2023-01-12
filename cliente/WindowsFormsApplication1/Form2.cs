@@ -26,6 +26,8 @@ namespace WindowsFormsApplication1
         delegate void DelegadoParaBtnImageColor(int index, int h);
         delegate void DelegadoParaLblPoints(string puntos);
         delegate void DelegadoParaLblTurno(int turno);
+        delegate void DelegadoParaLblPJ1(string puntos);
+        delegate void DelegadoParaLblPJ2(string puntos);
 
         int barcos;
         int round;
@@ -49,6 +51,14 @@ namespace WindowsFormsApplication1
         {
             
             txtRondas.Text = "Round: "+rondas;   
+        }
+        public void EscribirLblPJ1(string puntos)
+        {
+            labelPJ1.Text = puntos;
+        }
+        public void EscribirLblPJ2(string puntos)
+        {
+            labelPJ2.Text = puntos;
         }
         public void EscribirLblP(string points)
         {   
@@ -169,6 +179,7 @@ namespace WindowsFormsApplication1
             DelegadoParaEnabled delegadoEnabled = new DelegadoParaEnabled(EnableBtnJ);
             DelegadoParaBtnImageColor delegadoBtnImageColorJ = new DelegadoParaBtnImageColor(BtnImageJugador);
             DelegadoParaLblPoints delegadoLblP = new DelegadoParaLblPoints(EscribirLblP);
+            DelegadoParaLblPJ2 delegadoLblPJ2 = new DelegadoParaLblPJ2(EscribirLblPJ2);
 
             if (round > 0)
             {
@@ -190,10 +201,10 @@ namespace WindowsFormsApplication1
                     // PosicionJugadorButton[index].BackgroundImage = imageList1.Images[0]; //llamo al icono de fuego
                     // PosicionJugadorButton[index].BackColor = Color.DarkBlue;
                     Invoke(delegadoBtnImageColorJ, new object[] { index, h });
-                    PuntosJugador += 1;//en este caso acierta, por lo tanto le suma un punto
+                    PuntosEnemigo += 1;//en este caso acierta, por lo tanto le suma un punto
                      // labelPJ1.Text = PuntosJugador.ToString();
-                    string points = PuntosJugador.ToString();
-                    Invoke(delegadoLblP, new object[] { points });
+                    string points = PuntosEnemigo.ToString();
+                    Invoke(delegadoLblPJ2, new object[] { points });
                     // TimerEnemigo.Start();
                     
 
@@ -352,7 +363,8 @@ namespace WindowsFormsApplication1
             //asignamos a la lista todos los botones (coordenadas) del mapa a la posición de cada jugador
             PosicionEnemigoButton = new List<Button> { k1, k2, k3, k4, k5, k6, k7, k8, k9, k10, L1, L2, L3, L4, L5, L6, L7, L8, L9, L10, M1, M2, M3, M4, M5, M6, M7, M8, M9, M10, N1,N2, N3, N4, N5, N6, N7, N8, N9, N10, O1, O2, O3, O4, O5, O6, O7, O8, O9, O10, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, Q1, Q2, Q3, Q4, Q5, Q6, Q7, Q8, Q9, Q10, R1, R2, R3, R4, R5, R6, R7, R8, R9, R10, S1, S2, S3, S4, S5, S6, S7, S8, S9, S10, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10};
             PosicionJugadorButton = new List<Button> { A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, C1, C2, C3, C4, C5, C6, C7, C8, C9, C10, D1, D2, D3, D4, D5, D6, D7, D8, D9, D10, E1, E2, E3, E4, E5, E6, E7, E8, E9, E10, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, H1, H2, H3, H4, H5, H6, H7, H8, H9, H10, I1, I2, I3, I4, I5, I6, I7, I8, I9, I10, J1, J2, J3, J4, J5, J6, J7, J8, J9, J10};
-
+            //DelegadoParaLblPJ1 delegadoLblPJ1 = new DelegadoParaLblPJ1(EscribirLblPJ1);
+            //DelegadoParaLblPJ2 delegadoLblPJ2 = new DelegadoParaLblPJ2(EscribirLblPJ2);
 
             if (turno == 1)
             {
@@ -366,9 +378,6 @@ namespace WindowsFormsApplication1
                 labelTurno.BackColor = Color.Red;
                 labelTurno.ForeColor = Color.White;
             }
-
-
-            txtHelp.Text = "1) Clica en 17 casillas para poner tu flota.";
 
 
             for (int i = 0; i < PosicionEnemigoButton.Count; i++)
@@ -390,16 +399,12 @@ namespace WindowsFormsApplication1
 
             PuntosJugador = 0;
             PuntosEnemigo = 0;
-            round = 50;
+            round = 10;
             barcos = 17;
 
-            labelPJ1.Text = PuntosJugador.ToString();
-            labelPJ2.Text = PuntosEnemigo.ToString();
-            EnemigoUbi.Text = "--";
-
-
- 
-
+            //Invoke(delegadoLblPJ1, new object[] { PuntosJugador.ToString() });
+            //Invoke(delegadoLblPJ2, new object[] { PuntosEnemigo.ToString() });
+            
         }
 
         
@@ -516,6 +521,7 @@ namespace WindowsFormsApplication1
             if (ubicados == 1 && turno == 1)
             {
                 DelegadoParaLblTurno delegadoLblT = new DelegadoParaLblTurno(EscribirLblT);
+                DelegadoParaLblPJ1 delegadoLblPJ1 = new DelegadoParaLblPJ1(EscribirLblPJ1);
                 var button = (Button)sender;
                 string mensaje = "9/" + nForm + "/" + button.Text + "/" + j2;
                 byte[] msg = System.Text.Encoding.ASCII.GetBytes(mensaje);
@@ -536,6 +542,10 @@ namespace WindowsFormsApplication1
                     // PosicionJugadorButton[index].BackgroundImage = imageList1.Images[0]; //llamo al icono de fuego
                     // PosicionJugadorButton[index].BackColor = Color.DarkBlue;
                     Invoke(delegadoBtnImageColorE, new object[] { indexE, h });
+
+                    PuntosJugador++;
+                    Invoke(delegadoLblPJ1, new object[] { PuntosJugador.ToString() });
+
 
                 }
                 else

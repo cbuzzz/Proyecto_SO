@@ -136,3 +136,4 @@ C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subit
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\clienteForm.csproj.CoreCompileInputs.cache
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.exe
 C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.pdb
+C:\Users\sebas\OneDrive\Documentos\Universidad\SO\Proyecto NEW\Subitgithub\Subitgithub\cliente\WindowsFormsApplication1\obj\Debug\WindowsFormsApplication1.Form3.resources
